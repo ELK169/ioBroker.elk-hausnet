@@ -89,8 +89,8 @@
         ]
     },
     "native": {
-        "IP-Adresse des Controllers": "192.168.169.125",
-        "Pfad zur Konfigurationsdatei": "\\\\ELKSRV11\\HN\\Energie.xml"
+        "ControllerIP": "192.168.169.125",
+        "Config": "\\\\ELKSRV11\\HN\\Energie.xml"
     },
     "objects": [],
     "instanceObjects": [
