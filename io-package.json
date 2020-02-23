@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "elk-hausnet",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
-            "0.0.1": {
+            "0.0.2": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",
                 "ru": "Начальная версия",
@@ -30,15 +30,15 @@
             "zh-cn": "ELK HausNet"
         },
         "desc": {
-            "en": "elk-hausnet",
-            "de": "Elchhausnetz",
-            "ru": "Лось-hausnet",
-            "pt": "elk-hausnet",
-            "nl": "eland-hausnet",
-            "fr": "elk-hausnet",
-            "it": "alce-hausnet",
-            "es": "elk-hausnet",
-            "pl": "elk-hausnet",
+            "en": "ELK-HausNet",
+            "de": "ELK-HausNet",
+            "ru": "ELK-hausnet",
+            "pt": "ELK-hausnet",
+            "nl": "ELK-hausnet",
+            "fr": "ELK-hausnet",
+            "it": "ELK-hausnet",
+            "es": "ELK-hausnet",
+            "pl": "ELK-hausnet",
             "zh-cn": "麋鹿网"
         },
         "authors": [
@@ -89,8 +89,8 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
+        "IP-Adresse des Controllers": "192.168.169.125",
+        "Pfad zur Konfigurationsdatei": "\\\\ELKSRV11\\HN\\Energie.xml"
     },
     "objects": [],
     "instanceObjects": [
