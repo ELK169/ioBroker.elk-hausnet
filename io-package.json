@@ -1,0 +1,119 @@
+{
+    "common": {
+        "name": "elk-hausnet",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "ELK HausNet",
+        "titleLang": {
+            "en": "ELK HausNet",
+            "de": "ELK HausNet",
+            "ru": "ELK HausNet",
+            "pt": "ELK HausNet",
+            "nl": "ELK HausNet",
+            "fr": "ELK HausNet",
+            "it": "ELK HausNet",
+            "es": "ELK HausNet",
+            "pl": "ELK HausNet",
+            "zh-cn": "ELK HausNet"
+        },
+        "desc": {
+            "en": "elk-hausnet",
+            "de": "Elchhausnetz",
+            "ru": "Лось-hausnet",
+            "pt": "elk-hausnet",
+            "nl": "eland-hausnet",
+            "fr": "elk-hausnet",
+            "it": "alce-hausnet",
+            "es": "elk-hausnet",
+            "pl": "elk-hausnet",
+            "zh-cn": "麋鹿网"
+        },
+        "authors": [
+            "ELK <Andreas.Schultze@ELK-Datensysteme.de>"
+        ],
+        "keywords": [
+            "ioBroker",
+            "template",
+            "Smart Home",
+            "home automation"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "elk-hausnet.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/ELK169/ioBroker.elk-hausnet/master/admin/elk-hausnet.png",
+        "readme": "https://github.com/ELK169/ioBroker.elk-hausnet/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "hardware",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "materialize": true,
+        "materializeTab": true,
+        "adminTab": {
+            "singleton": true,
+            "name": {
+                "en": "ELK HausNet",
+                "de": "ELK HausNet",
+                "ru": "ELK HausNet",
+                "pt": "ELK HausNet",
+                "nl": "ELK HausNet",
+                "fr": "ELK HausNet",
+                "it": "ELK HausNet",
+                "es": "ELK HausNet",
+                "pl": "ELK HausNet",
+                "zh-cn": "ELK HausNet"
+            },
+            "link": "",
+            "fa-icon": "info"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=1.4.2"
+            }
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        }
+    ]
+}
