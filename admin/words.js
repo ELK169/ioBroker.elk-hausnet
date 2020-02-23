@@ -37,5 +37,11 @@ systemDictionary = {
         "es": "opcion 2",
         "pl": "Opcja 2",
         "zh-cn": "选项2"
+    },
+
+    "ControllerPort": {
+        "en": "Port des Controllers",
+        "de": "Port des Controllers"
+    
     }
 };

@@ -40,7 +40,8 @@ class ElkHausnet extends utils.Adapter {
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
         this.log.info("Config: " + this.config.Config);
-        this.log.info("Controlle-IP: " + this.config.ControllerIP);
+        this.log.info("Controller-IP: " + this.config.ControllerIP);
+        this.log.info("Controller-Port: " + this.config.ControllerPort);
 
         /*
         For every state in the system there has to be also an object of type state
