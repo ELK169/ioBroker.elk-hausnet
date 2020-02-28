@@ -62,7 +62,8 @@ class ElkHausnet extends utils.Adapter {
 */
 
 // Konfigurationsdatei laden
-var datei= fs.readFileSync('HNObjekte.json');
+this.log.debug("Konfiguration laden...");
+var datei= fs.readFileSync(this.config.Config);
 var HN=JSON.parse(datei);
 HN.forEach(element => {this.log.debug("HN:"+element.Name)  });
 
