@@ -62,10 +62,10 @@ class ElkHausnet extends utils.Adapter {
 */
 
 // Konfigurationsdatei laden
-this.log.debug("Konfiguration laden...");
+this.log.info("Konfiguration laden...");
 var datei= fs.readFileSync(this.config.Config);
 var HN=JSON.parse(datei);
-HN.forEach(element => {this.log.debug("HN:"+element.Name)  });
+HN.forEach(element => {this.log.info("HN:"+element.Name)  });
 
 
         // in this template all states changes inside the adapters namespace are subscribed
