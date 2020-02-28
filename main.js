@@ -63,8 +63,8 @@ class ElkHausnet extends utils.Adapter {
 
 // Konfigurationsdatei laden
 this.log.info("Konfiguration laden...");
-var datei= fs.readFileSync(this.config.Config);
-this.log.info("geladene Datei: "+datei.stringify);
+var datei= fs.readFileSync(this.config.Config,"utf8");
+this.log.info("Datei geladen");
 var HN=JSON.parse(datei);
 HN.forEach(element => {this.log.info("HN:"+element.Name)  });
 
