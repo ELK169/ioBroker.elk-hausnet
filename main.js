@@ -48,7 +48,7 @@ class ElkHausnet extends utils.Adapter {
         Here a simple template for a boolean variable named "testVariable"
         Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
         */
-        await this.setObjectAsync("testVariable", {
+/*        await this.setObjectAsync("testVariable", {
             type: "state",
             common: {
                 name: "testVariable",
@@ -59,6 +59,13 @@ class ElkHausnet extends utils.Adapter {
             },
             native: {},
         });
+*/
+
+// Konfigurationsdatei laden
+var datei= fs.readFileSync('HNObjekte.json');
+var HN=JSON.parse(datei);
+HN.forEach(element => {this.log.debug("HN:"+element.Name)  });
+
 
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates("*");

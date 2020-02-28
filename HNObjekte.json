@@ -1,0 +1,50 @@
+{"Raeume" : 
+[
+{"nr" :  0 ,"obj" : "Aussen","name": "Außen"},
+{"nr" :  1 ,"obj" : "AnGarage","name": "an der Garage"},
+{"nr" :  2 ,"obj" : "BueroTuer","name": "Bürotür"},
+{"nr" :  3 ,"obj" : "HausTuer","name": "Haustür"},
+{"nr" :  4 ,"obj" : "VorKueche","name": "vor der Küche"},
+{"nr" :  5 ,"obj" : "Terrasse","name": "Terrasse"},
+{"nr" :  6 ,"obj" : "Tor","name": "Tor"},
+{"nr" :  7 ,"obj" : "WegHaustuer","name": "Weg zur Haustür"},
+{"nr" :  8 ,"obj" : "Einfahrt","name": "Einfahrt"},
+{"nr" :  9 ,"obj" : "Parkplatz","name": "Parkplatz"},
+
+{"nr" : 16 ,"obj" : "Keller","name": "Keller"},
+{"nr" : 17 ,"obj" : "Garage","name": "Garage"},
+{"nr" : 18 ,"obj" : "Waschkueche","name": "Waschküche"},
+{"nr" : 19 ,"obj" : "Fahrradkeller","name": "Fahrradkeller"},
+{"nr" : 20 ,"obj" : "Vorratskeller","name": "Vorratskeller"},
+{"nr" : 21 ,"obj" : "Heizraum","name": "Heizraum"},
+{"nr" : 22 ,"obj" : "Labor","name": "Labor"},
+{"nr" : 23 ,"obj" : "Kellerflur","name": "Kellerflur"},
+{"nr" : 24 ,"obj" : "AbstellTreppe","name": "Abstellraum unter Treppe"},
+{"nr" : 25 ,"obj" : "FlurBuero","name": "Flur Büroeingang"},
+{"nr" : 26 ,"obj" : "Werkstatt","name": "Werkstatt"},
+{"nr" : 27 ,"obj" : "Lager","name": "Lager"},
+
+{"nr" : 32 ,"obj" : "Erdgeschoss","name": "Erdgeschoss"},
+{"nr" : 33 ,"obj" : "Wohnzimmer","name": "Wohnzimmer"},
+{"nr" : 34 ,"obj" : "Kueche","name": "Küche"},
+{"nr" : 35 ,"obj" : "Flur","name": "Flur"},
+{"nr" : 36 ,"obj" : "Eingangsflur","name": "Eingangsflur"},
+{"nr" : 37 ,"obj" : "Gaestebad","name": "Gästebad"},
+{"nr" : 38 ,"obj" : "BueroflurOben","name": "Büroflur oben"},
+{"nr" : 39 ,"obj" : "Buero","name": "Büro"},
+{"nr" : 40 ,"obj" : "Buerobad","name": "Bürobad"},
+
+{"nr" : 48 ,"obj" : "Obergeschoss","name": "Obergeschoss"},
+{"nr" : 49 ,"obj" : "Badezimmer","name": "Badezimmer"},
+{"nr" : 50 ,"obj" : "Katzentoilette","name": "Katzentoilette"},
+{"nr" : 51 ,"obj" : "Schlafzimmer","name": "Schlafzimmer"},
+{"nr" : 52 ,"obj" : "Galerie","name": "Galerie"},
+{"nr" : 53 ,"obj" : "Ankleidezimmer","name": "Ankleidezimmer"},
+{"nr" : 54 ,"obj" : "Fitnessraum","name": "Fitnessraum"},
+
+{"nr" : 64 ,"obj" : "Dachboden","name": "Dachboden"},
+{"nr" : 65 ,"obj" : "Spitzboden","name": "Spitzboden"},
+
+{"nr" : 99 ,"obj" : "System","name": "System"}
+]
+}
