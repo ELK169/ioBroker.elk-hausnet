@@ -95,12 +95,12 @@ class ElkHausnet extends utils.Adapter {
             switch(element.typ)
                 {
                 case "FS":
-                    this.setObjectNotExists(element.name, 
+                    this.setObjectNotExists(element.objname, 
                     {
                     type: "state",
                     common: {name: element.name,
                     type: "boolean",
-                    role: "indicator",
+                    role: "switch",
                     read: true,
                     write: true,
                     },
