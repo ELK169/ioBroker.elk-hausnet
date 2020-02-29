@@ -86,7 +86,7 @@ class ElkHausnet extends utils.Adapter {
             switch(element.typ)
                 {
                 case "FS":
-                    await this.setObjectAsync(element.name, 
+                    setObjectAsync(element.name, 
                     {
                     type: "state",
                     common: {name: element.name,
