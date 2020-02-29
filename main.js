@@ -10,6 +10,9 @@ const utils = require("@iobroker/adapter-core");
 
 // Load your modules here, e.g.:
 const fs = require("fs");
+const net = require("net");
+
+var Controller;
 
 class ElkHausnet extends utils.Adapter {
 
@@ -49,6 +52,10 @@ class ElkHausnet extends utils.Adapter {
         */
 
         // Verbindung zum Controller aufbauen...
+        this.log.info("Verbindungsaufbau zum Controller...");
+
+        connectController(this.config.ControllerIP,this.config.ControllerPort);
+     
         //
         //
         //
@@ -56,10 +63,6 @@ class ElkHausnet extends utils.Adapter {
         // Verbindung ist da, alles ok
         //this.setState("info.connection", true, true);
         //
-
-
-
-
 
 
         // Konfigurationsdateien laden
@@ -210,6 +213,37 @@ class ElkHausnet extends utils.Adapter {
     // 		}
     // 	}
     // }
+
+
+    //////////////////////////////////////////////////////////////////
+    // Es folgen Funktionen zum Zugriff auf die Controllerhardware
+    //////////////////////////////////////////////////////////////////
+
+    connectController(host,port)
+    {
+    Controller = net.connect({host: host, port: port}, function () {
+        this.log.info("verbunden");
+        Controller.write("?Info"); // Controller abfragen
+      });
+     
+      Controller.on('data', function (data) {
+        this.log.info(data.toString());
+        Controller.end();
+      });
+     
+      Controller.on('end', function () {
+        this.log.error('Verbindung getrennt');
+      });
+     
+      Controller.on('error', function (error) {
+        this.log.error('error: ' + error);
+        Controller.end();
+      });
+    }
+     
+   
+
+
 
 }
 
