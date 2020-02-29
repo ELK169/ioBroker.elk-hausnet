@@ -9,7 +9,7 @@
 const utils = require("@iobroker/adapter-core");
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
+const fs = require("fs");
 
 class ElkHausnet extends utils.Adapter {
 
@@ -34,7 +34,6 @@ class ElkHausnet extends utils.Adapter {
     async onReady() {
         // Initialize your adapter here
 
-        var fs=require("fs");
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true);
 
@@ -43,24 +42,25 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
-
         /*
         For every state in the system there has to be also an object of type state
         Here a simple template for a boolean variable named "testVariable"
         Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
         */
-/*        await this.setObjectAsync("testVariable", {
-            type: "state",
-            common: {
-                name: "testVariable",
-                type: "boolean",
-                role: "indicator",
-                read: true,
-                write: true,
-            },
-            native: {},
-        });
-*/
+
+        // Verbindung zum Controller aufbauen...
+        //
+        //
+        //
+        //
+        // Verbindung ist da, alles ok
+        //this.setState("info.connection", true, true);
+        //
+
+
+
+
+
 
         // Konfigurationsdateien laden
         this.log.info("Räume laden...");
@@ -82,21 +82,23 @@ class ElkHausnet extends utils.Adapter {
             this.log.info("Raum:"+element.name);
             });
 
+
+        // Objekte laden
+
         this.log.info("Objekte laden...");
         buf= fs.readFileSync(this.config.Config+"hnobjekte.json");
         this.log.info("Datei geladen: "+buf.length.toString()+" bytes");
         var HN=JSON.parse(buf.toString()); 
-        //this.log.info(buf.toString());
         this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
         HN.Objekte.forEach(element => 
             {
-            this.log.info("Objekt anlegen:"+element.name);
+            this.log.info("Objekt anlegen:"+element.objname +" ("+element.name+")");
 
             switch(element.typ)
                 {
                 case "FS":
                 case "REL":
-                    this.setObjectNotExists(element.objname, 
+                    this.setObjectNotExists(element.typ+"."+element.objname, 
                     {
                     type: "state",
                     common: {name: element.name,
@@ -109,7 +111,7 @@ class ElkHausnet extends utils.Adapter {
                     });
                     if(element.defaultwert>=0)
                         {
-                        this.setStateAsync(element.objname,element.defaultwert,false);
+                        this.setStateAsync(element.typ+"."+element.objname,element.defaultwert,false);
                         }
                     break;
 
@@ -132,36 +134,12 @@ class ElkHausnet extends utils.Adapter {
 
             });
 
-
-
-
-
-
-
-
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates("*");
 
-        /*
-        setState examples
-        you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-        */
-        // the variable testVariable is set to true as command (ack=false)
-//        await this.setStateAsync("testVariable", true);
 
-        // same thing, but the value is flagged "ack"
-        // ack should be always set to true if the value is received from or acknowledged from the target system
-//        await this.setStateAsync("testVariable", { val: true, ack: true });
 
-        // same thing, but the state is deleted after 30s (getState will return null afterwards)
-//        await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
 
-        // examples for the checkPassword/checkGroup functions
-        //let result = await this.checkPasswordAsync("admin", "iobroker");
-        //this.log.info("check user admin pw iobroker: " + result);
-
-        //result = await this.checkGroupAsync("admin", "admin");
-        //this.log.info("check group user admin group admin: " + result);
     }
 
     /**
