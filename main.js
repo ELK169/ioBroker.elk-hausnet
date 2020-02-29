@@ -38,7 +38,7 @@ class ElkHausnet extends utils.Adapter {
         // Initialize your adapter here
 
         // Reset the connection indicator during startup
-        this.setState("info.connection", false, true);
+        this.setState("info.connection", false, true); // gelb
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
@@ -53,8 +53,8 @@ class ElkHausnet extends utils.Adapter {
 
         // Verbindung zum Controller aufbauen...
         this.log.info("Verbindungsaufbau zum Controller...");
-
-        connectController(this.config.ControllerIP,this.config.ControllerPort);
+        
+        ControllerConnect(this.config.ControllerIP,this.config.ControllerPort);
      
         //
         //
@@ -219,30 +219,35 @@ class ElkHausnet extends utils.Adapter {
     // Es folgen Funktionen zum Zugriff auf die Controllerhardware
     //////////////////////////////////////////////////////////////////
 
-    connectController(host,port)
+    OnControllerData(data)
     {
+        this.log.info(data.toString());
+    }
+
+
+
+    ControllerConnect(host,port)
+    {
+    Controller.destroy();
     Controller=new net.Socket();
-    Controller.setTimeout(2000);
+    Controller.setTimeout(3000);
+
+    Controller.on('data', OnControllerData(data));
+    Controller.on('end', function () {this.log.error('Verbindung getrennt');});
+    Controller.on('error', function (error) {this.log.error('error: ' + error); Controller.destroy();});
+
     Controller.connect({host: host, port: port}, function () {
         this.log.info("verbunden");
         Controller.write("?Info\0"); // Controller abfragen
       });
-     
-      Controller.on('data', function (data) 
-      {
-        this.log.info(data.toString());
-      });
-     
-      Controller.on('end', function () 
-      {
-        this.log.error('Verbindung getrennt');
-      });
-     
-      Controller.on('error', function (error) 
-      {
-        this.log.error('error: ' + error);
-        Controller.destroy();
-      });
+      
+    while(Controller.connecting) 
+    {
+
+    }
+    this.log.info("nicht verbunden ??");
+
+
     }
      
 
