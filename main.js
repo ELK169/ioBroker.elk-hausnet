@@ -86,7 +86,7 @@ class ElkHausnet extends utils.Adapter {
             switch(element.typ)
                 {
                 case "FS":
-                    setObjectAsync(element.name, 
+                    this.setObjectNotExists(element.name, 
                     {
                     type: "state",
                     common: {name: element.name,
@@ -94,11 +94,21 @@ class ElkHausnet extends utils.Adapter {
                     role: "indicator",
                     read: true,
                     write: true,
-                    },  native: {},
+                    },
+                    native: {}
                     });
                     break;
 
-        } // switch
+                } // switch
+
+
+            });
+
+
+
+
+
+
 
 
         // in this template all states changes inside the adapters namespace are subscribed
