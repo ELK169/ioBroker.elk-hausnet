@@ -39,7 +39,7 @@ class ElkHausnet extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        this.log.info("Config-Datei: " + this.config.Config);
+        this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
 
@@ -63,7 +63,15 @@ class ElkHausnet extends utils.Adapter {
 
         // Konfigurationsdateien laden
         this.log.info("Räume laden...");
-        var buf= fs.readFileSync(this.config.Config+"hnraeume.json");
+        try 
+          {
+          var buf= fs.readFileSync(this.config.Config+"hnraeume.json");
+          }
+        catch (error) 
+        {
+        this.log.error("Fehler: "+error.toString());
+        return;
+        }
         this.log.info("Datei geladen: "+buf.length.toString()+" bytes");
         var HNRaeume=JSON.parse(buf.toString()); 
         //this.log.info(buf.toString());
