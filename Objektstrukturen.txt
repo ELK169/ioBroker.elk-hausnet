@@ -1,0 +1,57 @@
+JSON-Datei HNRaeume:
+
+{"Raeume" : 
+[
+{"nr" :  0 ,"obj" : "Aussen","name": "Außen"},
+{"nr" :  1 ,"obj" : "AnGarage","name": "an der Garage"},
+.
+.
+.
+]}
+
+nr: laufende Raumnummer
+obj: interner Objektname
+name: benutzerseitiger Name
+
+
+
+JSON-Datei HNObjekte:
+
+
+{"Objekte" : 
+[
+{"objnr" :  1, "objname": "FS001", "objID":"1.2.2", "raum": 99, "typ":"FS","name":"unbenutzt", "defaultwert":-1 }
+.
+.
+.
+]}
+
+objnr: Nummer, unter der das Objekt beim zugehörigen Controller bekannt ist
+objname: interner Objektname
+objID: Strukturbezeichnung des Objekts
+raum: Montageort des Objekts
+typ: Typ des Objekts:
+    
+    Sensor/Aktor-Kombinationen: (Benutzer kann direkt ändern)
+    FS: Fernschalter, hat digitalen Zustand und kann durch Impuls geschaltet werden
+    REL: Relais, hat digitalen Zustand und kann geschaltet werden
+    IMP: Impulsrelais, hat keinen Zustand, kann per Impuls aktiviert werden
+    DIMMER: hat analogen Zustand
+    
+    Sensoren digital:
+    FENSTER: Fensterkontakt, hat Zustand
+    TUER: Türkontakt, hat Zustand
+    RIEGEL: Türverriegelungskontakt, hat Zustand
+    TASTER: Impulstaster, kann vom Benutzer aktiviert werden
+    BM: Bewegungsmelder, kann vom Benutzer aktiviert werden
+    LS: Lichtschranke, hat Zustand, kann vom Benutzer aktiviert werden
+    KONTAKT: allgemeiner Kontakt, hat Zustand
+
+    Sensoren analog:
+    STROM: Stromsensor
+    TEMP: Temperatursensor
+    HELL: Helligkeitssensor
+
+name: benutzerseitiger Name des Objekts
+defaultwert: bei änderbaren Objekten: Wert, auf den beim Systemstart gesetzt werden soll.
+

@@ -27,8 +27,8 @@ systemDictionary = {
         "zh-cn": "选项1"
     },
     "Config": {
-        "en": "Pfad zur Konfigurationsdatei",
-        "de": "Pfad zur Konfigurationsdatei",
+        "en": "Pfad zu Konfigurationsdateien",
+        "de": "Pfad zu Konfigurationsdateien",
         "ru": "option2",
         "pt": "opção 2",
         "nl": "Optie 2",

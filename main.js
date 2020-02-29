@@ -39,7 +39,7 @@ class ElkHausnet extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        this.log.info("Config: " + this.config.Config);
+        this.log.info("Config-Datei: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
 
@@ -61,12 +61,44 @@ class ElkHausnet extends utils.Adapter {
         });
 */
 
-// Konfigurationsdatei laden
-this.log.info("Konfiguration laden...");
-var datei= fs.readFileSync(this.config.Config,"utf8");
-this.log.info("Datei geladen");
-var HN=JSON.parse(datei);
-HN.forEach(element => {this.log.info("HN:"+element.Name)  });
+        // Konfigurationsdateien laden
+        this.log.info("Räume laden...");
+        var buf= fs.readFileSync(this.config.Config+"hnraeume.json");
+        this.log.info("Datei geladen: "+buf.length.toString()+" bytes");
+        var HNRaeume=JSON.parse(buf.toString()); 
+        //this.log.info(buf.toString());
+        this.log.info(HNRaeume.Raeume.length+ " Räume in Datei enthalten");
+        HNRaeume.Raeume.forEach(element => 
+            {
+            this.log.info("Raum:"+element.name);
+            });
+
+        this.log.info("Objekte laden...");
+        buf= fs.readFileSync(this.config.Config+"hnobjekte.json");
+        this.log.info("Datei geladen: "+buf.length.toString()+" bytes");
+        var HN=JSON.parse(buf.toString()); 
+        //this.log.info(buf.toString());
+        this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
+        HN.Objekte.forEach(element => 
+            {
+            this.log.info("Objekt anlegen:"+element.name);
+
+            switch(element.typ)
+                {
+                case "FS":
+                    await this.setObjectAsync(element.name, 
+                    {
+                    type: "state",
+                    common: {name: element.name,
+                    type: "boolean",
+                    role: "indicator",
+                    read: true,
+                    write: true,
+                    },  native: {},
+                    });
+                    break;
+
+        } // switch
 
 
         // in this template all states changes inside the adapters namespace are subscribed
@@ -77,21 +109,21 @@ HN.forEach(element => {this.log.info("HN:"+element.Name)  });
         you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
         */
         // the variable testVariable is set to true as command (ack=false)
-        await this.setStateAsync("testVariable", true);
+//        await this.setStateAsync("testVariable", true);
 
         // same thing, but the value is flagged "ack"
         // ack should be always set to true if the value is received from or acknowledged from the target system
-        await this.setStateAsync("testVariable", { val: true, ack: true });
+//        await this.setStateAsync("testVariable", { val: true, ack: true });
 
         // same thing, but the state is deleted after 30s (getState will return null afterwards)
-        await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
+//        await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
 
         // examples for the checkPassword/checkGroup functions
-        let result = await this.checkPasswordAsync("admin", "iobroker");
-        this.log.info("check user admin pw iobroker: " + result);
+        //let result = await this.checkPasswordAsync("admin", "iobroker");
+        //this.log.info("check user admin pw iobroker: " + result);
 
-        result = await this.checkGroupAsync("admin", "admin");
-        this.log.info("check group user admin group admin: " + result);
+        //result = await this.checkGroupAsync("admin", "admin");
+        //this.log.info("check group user admin group admin: " + result);
     }
 
     /**

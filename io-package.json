@@ -90,7 +90,7 @@
     },
     "native": {
         "ControllerIP": "192.168.169.125",
-        "Config": "\\\\ELKSRV11\\HN\\Energie.json",
+        "Config": "\\\\ELKSRV11\\HN\\",
         "ControllerPort": "42169"
     },
     "objects": [],
