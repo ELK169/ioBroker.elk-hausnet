@@ -221,29 +221,30 @@ class ElkHausnet extends utils.Adapter {
 
     connectController(host,port)
     {
-    Controller = net.connect({host: host, port: port}, function () {
+    Controller=new net.Socket();
+    Controller.setTimeout(2000, function() { Controller.destroy(); });
+    Controller.connect({host: host, port: port}, function () {
         this.log.info("verbunden");
-        Controller.write("?Info"); // Controller abfragen
+        Controller.write("?Info\0"); // Controller abfragen
       });
      
-      Controller.on('data', function (data) {
+      Controller.on('data', function (data) 
+      {
         this.log.info(data.toString());
-        Controller.end();
       });
      
-      Controller.on('end', function () {
+      Controller.on('end', function () 
+      {
         this.log.error('Verbindung getrennt');
       });
      
-      Controller.on('error', function (error) {
+      Controller.on('error', function (error) 
+      {
         this.log.error('error: ' + error);
-        Controller.end();
+        Controller.destroy();
       });
     }
      
-   
-
-
 
 }
 
