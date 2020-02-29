@@ -206,7 +206,7 @@ class ElkHausnet extends utils.Adapter {
             //...
 
             // wenn es geklappt hat, dies melden:
-            this.setStateAsync(element.objname,element.state,true);
+            this.setStateAsync(element.obj,element.state,true);
 
             }
 
