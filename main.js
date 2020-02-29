@@ -95,6 +95,7 @@ class ElkHausnet extends utils.Adapter {
             switch(element.typ)
                 {
                 case "FS":
+                case "REL":
                     this.setObjectNotExists(element.objname, 
                     {
                     type: "state",
@@ -106,6 +107,24 @@ class ElkHausnet extends utils.Adapter {
                     },
                     native: {}
                     });
+                    if(element.defaultwert>=0)
+                        {
+                        this.setStateAsync(element.objname,element.defaultwert,false);
+                        }
+                    break;
+
+               case "IMP":
+               case "DIMMER":
+               case "FENSTER":
+               case "TUER":
+               case "RIEGEL":
+               case "TASTER":
+               case "BM":
+               case "LS":
+               case "KONTAKT":
+               case "STROM":
+               case "TEMP":
+               case "HELL":
                     break;
 
                 } // switch
@@ -181,7 +200,16 @@ class ElkHausnet extends utils.Adapter {
     onStateChange(id, state) {
         if (state) {
             // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            this.log.info(`state ${id} geändert: ${state.val} (ack = ${state.ack})`);
+            if(state.ack==false)
+            { // Status soll geändert werden...
+            //...
+
+            // wenn es geklappt hat, dies melden:
+            this.setStateAsync(element.objname,element.state,true);
+
+            }
+
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
