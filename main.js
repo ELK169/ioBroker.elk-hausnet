@@ -95,26 +95,28 @@ class ElkHausnet extends utils.Adapter {
         this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
         HN.Objekte.forEach(element => 
             {
-            this.log.info("Objekt anlegen:"+element.objname +" ("+element.name+")");
+            this.log.info("Objekt anlegen: "+element.objname +" ("+element.name+")");
 
             switch(element.typ)
                 {
                 case "FS":
                 case "REL":
-                    this.setObjectNotExists(element.typ+"."+element.objname, 
+                    this.setObjectNotExists("Obj."+element.typ+"."+element.objname, 
                     {
                     type: "state",
-                    common: {name: element.name,
-                    type: "boolean",
-                    role: "switch",
-                    read: true,
-                    write: true,
-                    },
-                    native: {}
+                    common: 
+                        {
+                        name: element.name,
+                        type: "boolean",
+                        role: "switch",
+                        read: true,
+                        write: true,
+                        },
+                    native:{"Nr": element.objnr}
                     });
                     if(element.defaultwert>=0)
                         {
-                        this.setStateAsync(element.typ+"."+element.objname,element.defaultwert,false);
+                        this.setStateAsync("Obj."+element.typ+"."+element.objname,element.defaultwert,false);
                         }
                     break;
 
@@ -222,6 +224,7 @@ class ElkHausnet extends utils.Adapter {
     OnControllerData(data)
     {
         this.log.info(data.toString());
+    
     }
 
 

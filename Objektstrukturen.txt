@@ -26,7 +26,7 @@ JSON-Datei HNObjekte:
 .
 ]}
 
-objnr: Nummer, unter der das Objekt beim zugehörigen Controller bekannt ist
+objnr: Nummer, unter der das Objekt beim zugehörigen Controller bekannt ist (0..)
 objname: interner Objektname
 objID: Strukturbezeichnung des Objekts
 raum: Montageort des Objekts
