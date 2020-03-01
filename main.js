@@ -114,7 +114,7 @@ class ElkHausnet extends utils.Adapter {
                         },
                     native:{"Nr": element.objnr}
                     });
-                    if(element.defaultwert>=0)
+                    if(element.defaultwert!=null)
                         {
                         this.setStateAsync("Obj."+element.typ+"."+element.objname,element.defaultwert,false);
                         }
