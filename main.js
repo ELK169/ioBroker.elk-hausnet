@@ -52,9 +52,9 @@ class ElkHausnet extends utils.Adapter {
         */
 
         // Verbindung zum Controller aufbauen...
-        this.log.info("Verbindungsaufbau zum Controller...");
+       // this.log.info("Verbindungsaufbau zum Controller...");
         
-        ControllerConnect(this.config.ControllerIP,this.config.ControllerPort);
+     //   ControllerConnect(this.config.ControllerIP,this.config.ControllerPort);
      
         //
         //
