@@ -295,7 +295,7 @@ class ElkHausnet extends utils.Adapter {
    var WD=setInterval(OnWatchdog,WDTime);
    var HNObjekte = $("elk-hausnet.0.Obj.*");
 
-   setTimeout(OnDefaultwerteSetzen,DefaultsSetzenNach);
+   setTimeout(OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
 
    }
 
@@ -308,14 +308,13 @@ class ElkHausnet extends utils.Adapter {
 //}
 
 
-OnDefaultwerteSetzen()
+OnDefaultwerteSetzen(Objekte)
  {
      // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
      // Fehlerzähler zurücksetzen
- HN.Objekte.forEach(element => 
+ Objekte.forEach(function(element) 
     {
-
-        getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
+       getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
         obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
@@ -323,8 +322,7 @@ OnDefaultwerteSetzen()
             this.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
         });
-    } 
-    
+    })
 }
 
     //////////////////////////////////////////////////////////////////
