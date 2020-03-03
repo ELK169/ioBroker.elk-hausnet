@@ -16,6 +16,7 @@ const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
 const DefaultsSetzenNach=10000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden
+var $;
 
 var Controller;
 // alle Objekte holen 
