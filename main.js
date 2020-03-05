@@ -75,11 +75,11 @@ class ElkHausnet extends utils.Adapter {
 
 this.log.info("vor getStates");
 
-var HNObjekte;
+//var HNObjekte;
 adapter.getStates("elk-hausnet.0.Obj.*",function(err,states) 
     {
     this.log.info("in getStates");
-    HNObjekte=states;
+  //  HNObjekte=states;
     for(var id in states)
         {
         this.log.info(id.toString() + JSON.stringify(id));
