@@ -88,7 +88,7 @@ adapter.getStates("elk-hausnet.0.Obj.*",function(err,states)
     }); 
 
 
-return;
+
 
 
 
