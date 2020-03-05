@@ -74,7 +74,7 @@ class ElkHausnet extends utils.Adapter {
 
 //var HNObjekte = $("elk-hausnet.0.Obj.*"); // geht nur im scriptmodus, nicht im Adapter!
 
-log("vor getStates");
+this.log.info("vor getStates");
 
 var HNObjekte;
 getStates("elk-hausnet.0.Obj.*",function(err,states) 
@@ -82,7 +82,7 @@ getStates("elk-hausnet.0.Obj.*",function(err,states)
     HNObjekte=states;
     for(var id in HNObjekte)
         {
-        log(id,JSON.stringify(id));
+        this.log.info(id,JSON.stringify(id));
         }
 
     }); 
