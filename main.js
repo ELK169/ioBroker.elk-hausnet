@@ -77,7 +77,7 @@ class ElkHausnet extends utils.Adapter {
 log("vor getStates");
 
 var HNObjekte;
-getStates("elk-hausnet.0.Obj",function(err,states) 
+getStates("elk-hausnet.0.Obj.*",function(err,states) 
     {
     HNObjekte=states;
     for(var id in HNObjekte)
