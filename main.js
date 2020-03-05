@@ -16,11 +16,20 @@ const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
 const DefaultsSetzenNach=10000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden
-var $;
 
 var Controller;
 // alle Objekte holen 
-var HNObjekte = $("elk-hausnet.0.Obj.*");
+
+
+//var HNObjekte = $("elk-hausnet.0.Obj.*"); // geht nur im scriptmodus, nicht im Adapter!
+
+
+//var HNObjekte;
+//getObject("elk-hausnet.0.Obj",function(err,OBJ) {HNObjekte=OBJ});
+
+
+
+
 
 class ElkHausnet extends utils.Adapter {
 
@@ -54,6 +63,49 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
+
+
+
+
+
+
+// test!!
+
+
+//var HNObjekte = $("elk-hausnet.0.Obj.*"); // geht nur im scriptmodus, nicht im Adapter!
+
+log("vor getStates");
+
+var HNObjekte;
+getStates("elk-hausnet.0.Obj",function(err,states) 
+    {
+    HNObjekte=states;
+    for(var id in HNObjekte)
+        {
+        log(id,JSON.stringify(id));
+        }
+
+    }); 
+
+    return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Konfigurationsdateien laden
         this.log.info("Räume laden...");
