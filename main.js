@@ -383,7 +383,7 @@ adapter.getStates('*', (err, states) =>
 
     connectController(host,port)
     {
-    log('Verbindungsversuch..');
+    this.log.info('Verbindungsversuch..');
     Connected=false;
     if (IntTmr != null) 
         {
@@ -419,13 +419,13 @@ adapter.getStates('*', (err, states) =>
         WD=null;
         }
     setState("info.connection", false, true);
-    log('Verbindung getrennt');
+    this.log.info('Verbindung getrennt');
     }
 
 
 OnError(error)
 {
-    log('error: ' + error);
+    this.log.info('error: ' + error);
     if (IntTmr != null) 
         {
         clearInterval(IntTmr);
@@ -441,7 +441,7 @@ OnError(error)
 
 OnConnect()
 {
-   log("Mit Controller verbunden. Info abfragen...");
+   this.log.info("Mit Controller verbunden. Info abfragen...");
    setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
@@ -451,10 +451,10 @@ OnWatchdog()
 { // wird regelmäßig aufgerufen und schaut, wann der letzte Kontakt war
 var zeit=(Date.now()-LetzterKontakt) / 1000;
 var d=new Date(LetzterKontakt);
-log("Watchdog: letzter Kontakt war "+d.toLocaleTimeString("de-DE")+", also vor "+ zeit.toFixed(3)+" s","debug");
+this.log.info("Watchdog: letzter Kontakt war "+d.toLocaleTimeString("de-DE")+", also vor "+ zeit.toFixed(3)+" s","debug");
 if(zeit>30)
     { // zu lange nichts gehört, also neu verbinden
-    log("Watchdog abgelaufen: neu verbinden","warn");
+    this.log.info("Watchdog abgelaufen: neu verbinden","warn");
     Connected=false;
     connectController(this.config.ControllerIP,this.config.ControllerPort);
    }
@@ -463,21 +463,21 @@ if(zeit>30)
 
 OnData(data)
   {
-  log(data.toString(),"debug");
+  this.log.info(data.toString(),"debug");
   if(Connected) 
     LetzterKontakt=Date.now();  
   // jetzt die empfangenen Daten verarbeiten
   if(data.toString().startsWith("Info="))
     { // Antwort auf Info-Abfrage beim Start
     Connected=true;
-    log("Verbindung bestätigt.")
+    this.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
     IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
     { // Antwort auf Startbefehl
-    log("Überwachung bestätigt.")
+    this.log.info("Überwachung bestätigt.")
     Controller.write("?Obj*\0"); // alle Werte abfragen
     return;
     }
@@ -486,18 +486,18 @@ OnData(data)
     { // Zustandsmeldung
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
-    log("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
+    this.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
     var neuerWert=false;
     if(w.startsWith("1"))
         neuerWert=true;
 
-    log("neuer Zustand von Objekt "+o+" ist "+w,"debug");
+    this.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
     var O=HoleHNObjekt(o);
     if(O!=null)
         setState(O,neuerWert,true);
     else
-        log("Wertänderung für unbekanntes Objekt erhalten","warn");
+        this.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
     }
   }       
@@ -505,6 +505,7 @@ OnData(data)
 
  HoleHNObjekt(suchNr)
     {
+        /*
     var fund=null;
     HNObjekte.each(function(id, i) 
       {
@@ -515,7 +516,8 @@ OnData(data)
         log("Objekt gefunden: "+fund.toString(),"debug");
         }
       });
-      return fund;
+      return fund;*/
+      return undefined;
     }
 
 
@@ -565,7 +567,7 @@ OnData(data)
                 if(state==true) StNeu=1;
                 if(Nr==null) 
                 {
-                    this.log("Unbekanntes Objekt "+id.toString()+" soll geändert werden.","error");
+                    this.log.info("Unbekanntes Objekt "+id.toString()+" soll geändert werden.","error");
                     return;
                 }
                 Controller.write("Obj"+Nr.toString()+"="+StNeu.toString()+"\0");
