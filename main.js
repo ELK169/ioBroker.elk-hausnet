@@ -464,21 +464,21 @@ if(zeit>30)
 
 OnData(data)
   {
-  this.log.info(data.toString(),"debug");
+  this.Ada.log.info(data.toString(),"debug");
   if(Connected) 
     LetzterKontakt=Date.now();  
   // jetzt die empfangenen Daten verarbeiten
   if(data.toString().startsWith("Info="))
     { // Antwort auf Info-Abfrage beim Start
     Connected=true;
-    this.log.info("Verbindung bestätigt.")
+    this.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
     IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
     { // Antwort auf Startbefehl
-    this.log.info("Überwachung bestätigt.")
+    this.Ada.log.info("Überwachung bestätigt.")
     Controller.write("?Obj*\0"); // alle Werte abfragen
     return;
     }
@@ -487,18 +487,18 @@ OnData(data)
     { // Zustandsmeldung
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
-    this.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
+    this.Ada.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
     var neuerWert=false;
     if(w.startsWith("1"))
         neuerWert=true;
 
-    this.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
+    this.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
     var O=HoleHNObjekt(o);
     if(O!=null)
         setState(O,neuerWert,true);
     else
-        this.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
+        this.Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
     }
   }       
