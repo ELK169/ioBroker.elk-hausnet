@@ -75,8 +75,12 @@ class ElkHausnet extends utils.Adapter {
 
 this.log.info("vor getStates...");
 
+
+
+
+
 //var HNObjekte; elk-hausnet.0.Obj.
-adapter.getStates("*", (err, states) => 
+adapter.getStates("Obj.*", (err, states) => 
     {
     this.log.info("in getStates...");
   //  HNObjekte=states;
