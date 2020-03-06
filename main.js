@@ -310,7 +310,7 @@ class ElkHausnet extends utils.Adapter {
         
    connectController(this.config.ControllerIP,this.config.ControllerPort);
    var WD=setInterval(OnWatchdog,WDTime);
-   var HNObjekte = $("elk-hausnet.0.Obj.*");
+//   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
    setTimeout(OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
 
