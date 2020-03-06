@@ -69,36 +69,7 @@ class ElkHausnet extends utils.Adapter {
 
 
 
-// test!!
 
-//var HNObjekte = $("elk-hausnet.0.Obj.*"); // geht nur im scriptmodus, nicht im Adapter!
-/*
-this.log.info("vor getStates...");
-
-adapter.objects.getObjectList({
-        startkey: adapter.namespace + '.Obj.',
-        endkey:   adapter.namespace + '.Obj.\u9999'},liste=>{this.log.info(liste.stringify())});
-
-    
-
-
-this.getState("Obj.FS.FS001",element => {this.log.info(element.id);});
-
-
-
-//var HNObjekte; elk-hausnet.0.Obj.
-adapter.getStates('*', (err, states) => 
-    {
-    this.log.info("in getStates...");
-  //  HNObjekte=states;
-    for(var id in states)
-        {
-        this.log.info(id.toString() + JSON.stringify(id));
-        }
-
-    }); 
-
-*/
 
         // Konfigurationsdateien laden
         this.log.info("Räume laden...");
@@ -356,6 +327,38 @@ adapter.getStates('*', (err, states) =>
 
 OnDefaultwerteSetzen(Objekte)
  {
+
+
+// test!!
+
+this.log.info("vor getObjectList...");
+
+adapter.objects.getObjectList({
+        startkey: adapter.namespace + '.Obj.',
+        endkey:   adapter.namespace + '.Obj.\u9999'},liste=>{this.log.info(liste.stringify())});
+
+        this.log.info("nach getObjectList.");
+
+//this.getState("Obj.FS.FS001",element => {this.log.info(element.id);});
+
+
+/*
+//var HNObjekte; elk-hausnet.0.Obj.
+adapter.getStates('*', (err, states) => 
+    {
+    this.log.info("in getStates...");
+  //  HNObjekte=states;
+    for(var id in states)
+        {
+        this.log.info(id.toString() + JSON.stringify(id));
+        }
+
+    }); 
+
+*/
+
+
+
      // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
      // Fehlerzähler zurücksetzen
  Objekte.forEach(function(element) 
