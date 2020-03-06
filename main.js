@@ -494,9 +494,9 @@ OnData(data)
 
     this.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
-    var O=HoleHNObjekt(o);
+    var O=this.Ada.HoleHNObjekt(o);
     if(O!=null)
-        setState(O,neuerWert,true);
+        this.Ada.setState(O,neuerWert,true);
     else
         this.Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
