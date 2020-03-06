@@ -76,11 +76,12 @@ class ElkHausnet extends utils.Adapter {
 this.log.info("vor getStates...");
 
 
+this.getState("Obj.FS.FS001",element => {this.log.info(element.id);});
 
 
 
 //var HNObjekte; elk-hausnet.0.Obj.
-getStates('*', (err, states) => 
+adapter.getStates('*', (err, states) => 
     {
     this.log.info("in getStates...");
   //  HNObjekte=states;
@@ -90,23 +91,6 @@ getStates('*', (err, states) =>
         }
 
     }); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
