@@ -7,8 +7,6 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
-
-// Load your modules here, e.g.:
 const fs = require("fs");
 const net = require("net");
 
@@ -16,19 +14,12 @@ const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
 const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden
+
 var WD; // Watchdog
-
+var LetzterKontakt=Date.now();
+var IntTmr=null;
+var Connected=false;
 var Controller;
-// alle Objekte holen 
-
-
-//var HNObjekte = $("elk-hausnet.0.Obj.*"); // geht nur im scriptmodus, nicht im Adapter!
-
-
-//var HNObjekte;
-//getObject("elk-hausnet.0.Obj",function(err,OBJ) {HNObjekte=OBJ});
-
-
 
 
 
@@ -403,13 +394,14 @@ adapter.getStates('*', (err, states) =>
         }
     Controller=new net.Socket();
     Controller.setTimeout(5000);
-    Controller.on('data',OnData);
-    Controller.on('end',OnEnd);
-    Controller.on('error', OnError);
-    Controller.connect({host: host, port: port},OnConnect);
+    Controller.on('data',this.OnData);
+    Controller.on('end',this.OnEnd);
+    Controller.on('error',this.OnError);
+    Controller.connect({host: host, port: port},this.OnConnect);
     }
 
-    OnEnd()
+
+OnEnd()
     {
     Connected=false;
     Controller.end;
@@ -424,7 +416,7 @@ adapter.getStates('*', (err, states) =>
         clearInterval(WD);
         WD=null;
         }
-    setState("info.connection", false, true);
+    this.setState("info.connection", false, true);
     this.log.info('Verbindung getrennt');
     }
 
@@ -438,7 +430,7 @@ OnError(error)
         IntTmr=null;
         }
     Connected=false;
-    setState("info.connection", false, true);
+    this.setState("info.connection", false, true);
     Controller.end();
     Controller.destroy();
   // nichts tun, der Watchdog kümmert sich drum
@@ -448,7 +440,7 @@ OnError(error)
 OnConnect()
 {
    this.log.info("Mit Controller verbunden. Info abfragen...");
-   setState("info.connection", true, true);
+   this.setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
 }
@@ -462,7 +454,7 @@ if(zeit>30)
     { // zu lange nichts gehört, also neu verbinden
     this.log.info("Watchdog abgelaufen: neu verbinden","warn");
     Connected=false;
-    connectController(this.config.ControllerIP,this.config.ControllerPort);
+    this.connectController(this.config.ControllerIP,this.config.ControllerPort);
    }
 }
 
@@ -523,7 +515,7 @@ OnData(data)
         }
       });
       return fund;*/
-      return undefined;
+      return null;
     }
 
 
