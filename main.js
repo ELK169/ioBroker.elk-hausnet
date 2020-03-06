@@ -16,6 +16,7 @@ const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
 const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden
+var WD; // Watchdog
 
 var Controller;
 // alle Objekte holen 
@@ -63,13 +64,6 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
-
-
-
-
-
-
-
 
         // Konfigurationsdateien laden
         this.log.info("Räume laden...");
@@ -305,16 +299,28 @@ class ElkHausnet extends utils.Adapter {
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates("*");
 
-   // Verbindung zum Controller aufbauen...
-   this.log.info("Verbindungsaufbau zum Controller...");
+        // Verbindung zum Controller aufbauen...
+        this.log.info("Verbindungsaufbau zum Controller...1");
         
-   var WD=setInterval(OnWatchdog,WDTime);
    this.connectController(this.config.ControllerIP,this.config.ControllerPort);
+   this.log.info("Verbindungsaufbau zum Controller...2");
+
+   WD=this.setInterval(this.OnWatchdog,WDTime);
 //   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
-   setTimeout(this.OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
+   this.setTimeout(this.OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
    //OnDefaultwerteSetzen(HN.Objekte);
    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -381,7 +387,7 @@ adapter.getStates('*', (err, states) =>
 
 
 
-    connectController(host,port)
+  connectController(host,port)
     {
     this.log.info('Verbindungsversuch..');
     Connected=false;
