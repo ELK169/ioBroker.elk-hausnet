@@ -9,7 +9,6 @@
 const utils = require("@iobroker/adapter-core");
 const fs = require("fs");
 const net = require("net");
-const gthis=this;
 const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
@@ -21,6 +20,7 @@ var IntTmr=null;
 var Connected=false;
 var Controller;
 
+var gthis=this;
 
 
 class ElkHausnet extends utils.Adapter {
