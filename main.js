@@ -296,10 +296,10 @@ class ElkHausnet extends utils.Adapter {
    this.connectController(this.config.ControllerIP,this.config.ControllerPort);
    this.log.info("Verbindungsaufbau zum Controller...2");
 
-   WD=this.setInterval(this.OnWatchdog,WDTime);
+   WD=setInterval(this.OnWatchdog,WDTime);
 //   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
-   this.setTimeout(this.OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
+   setTimeout(this.OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
    //OnDefaultwerteSetzen(HN.Objekte);
    }
 
@@ -439,7 +439,7 @@ OnError(error)
 
 OnConnect()
 {
-   this.log.info("Mit Controller verbunden. Info abfragen...");
+   globalThis.log.info("Mit Controller verbunden. Info abfragen...");
    this.setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
