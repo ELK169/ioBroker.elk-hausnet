@@ -9,7 +9,7 @@
 const utils = require("@iobroker/adapter-core");
 const fs = require("fs");
 const net = require("net");
-
+const gthis=this;
 const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
@@ -361,7 +361,7 @@ adapter.getStates('*', (err, states) =>
  this.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
-       getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
+       this.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
         obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
@@ -439,8 +439,8 @@ OnError(error)
 
 OnConnect()
 {
-   globalThis.log.info("Mit Controller verbunden. Info abfragen...");
-   this.setState("info.connection", true, true);
+   gthis.log.info("Mit Controller verbunden. Info abfragen...");
+   gthis.setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
 }
