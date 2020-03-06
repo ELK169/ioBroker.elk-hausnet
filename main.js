@@ -393,19 +393,13 @@ adapter.getStates('*', (err, states) =>
         Controller.end;
         Controller.destroy;
         }
-    this.log.info('Verbindungsversuch..2');
     Controller=new net.Socket();
-    this.log.info('Verbindungsversuch..3');
     Controller.setTimeout(5000);
-    this.log.info('Verbindungsversuch..4');
     Controller.on('data',this.OnData);
-    this.log.info('Verbindungsversuch..5');
     Controller.on('end',this.OnEnd);
-    this.log.info('Verbindungsversuch..6');
     Controller.on('error',this.OnError);
-    this.log.info('Verbindungsversuch..7');
-    Controller.connect({host: host, port: port},this.OnConnect(Adapter));
-    this.log.info('Verbindungsversuch..8');
+    Controller.connect({host: host, port: port},this.OnConnect);
+    this.log.info('Verbindungsversuch..2');
     }
 
 
