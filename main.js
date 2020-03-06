@@ -330,7 +330,7 @@ OnDefaultwerteSetzen(Objekte)
 
 
 // test!!
-
+/*
 this.log.info("vor getObjectList...");
 
 adapter.objects.getObjectList({
@@ -361,6 +361,7 @@ adapter.getStates('*', (err, states) =>
 
      // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
      // Fehlerzähler zurücksetzen
+ this.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
        getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
