@@ -306,10 +306,10 @@ class ElkHausnet extends utils.Adapter {
         this.subscribeStates("*");
 
    // Verbindung zum Controller aufbauen...
-   this.log.info("Verbindungsaufbau zum Controller...");
+   this.log.info("Verbindungsaufbau zum Controller........");
         
-   connectController(this.config.ControllerIP,this.config.ControllerPort);
    var WD=setInterval(OnWatchdog,WDTime);
+   connectController(this.config.ControllerIP,this.config.ControllerPort);
 //   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
    //setTimeout(OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
