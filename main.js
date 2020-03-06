@@ -80,7 +80,7 @@ this.log.info("vor getStates...");
 
 
 //var HNObjekte; elk-hausnet.0.Obj.
-adapter.getStates("Obj.*", (err, states) => 
+adapter.getStates("elk-hausnet.0.*", (err, states) => 
     {
     this.log.info("in getStates...");
   //  HNObjekte=states;
