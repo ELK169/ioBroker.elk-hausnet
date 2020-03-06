@@ -398,6 +398,7 @@ adapter.getStates('*', (err, states) =>
     Controller.on('data',this.OnData);
     Controller.on('end',this.OnEnd);
     Controller.on('error',this.OnError);
+    Controller.Ada=this;
     Controller.connect({host: host, port: port},this.OnConnect);
     this.log.info('Verbindungsversuch..2');
     }
@@ -439,10 +440,10 @@ OnError(error)
 }
 
 
-OnConnect(Ada)
+OnConnect()
 {
-   Ada.log.info("Mit Controller verbunden. Info abfragen...");
-   Ada.setState("info.connection", true, true);
+   this.Ada.log.info("Mit Controller verbunden. Info abfragen...");
+   this.Ada.setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
 }
