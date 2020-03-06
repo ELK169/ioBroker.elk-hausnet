@@ -312,8 +312,8 @@ class ElkHausnet extends utils.Adapter {
    var WD=setInterval(OnWatchdog,WDTime);
 //   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
-   setTimeout(OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
-
+   //setTimeout(OnDefaultwerteSetzen(HN.Objekte),DefaultsSetzenNach);
+   OnDefaultwerteSetzen(HN.Objekte);
    }
 
 
