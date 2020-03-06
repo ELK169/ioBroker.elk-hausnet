@@ -75,6 +75,12 @@ class ElkHausnet extends utils.Adapter {
 
 this.log.info("vor getStates...");
 
+adapter.objects.getObjectList({
+        startkey: adapter.namespace + '.',
+        endkey:   adapter.namespace + '.\u9999'},liste=>{this.log.info(liste.stringify())});
+
+    
+
 
 this.getState("Obj.FS.FS001",element => {this.log.info(element.id);});
 
