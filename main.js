@@ -362,14 +362,14 @@ adapter.getStates('*', (err, states) =>
  this.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
-        this.log.debug("Objekt holen: "+"Obj."+element.typ+"."+element.objname);
-        
-       this.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
+        Adapter.log.debug("Objekt holen: "+"Obj."+element.typ+"."+element.objname);
+
+        Adapter.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
         obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
             {
-            this.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
+                Adapter.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
         });
     })
