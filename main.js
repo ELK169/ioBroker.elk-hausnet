@@ -346,9 +346,9 @@ adapter.getStates('*', (err, states) =>
  A.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
-        A.log.debug("Objekt holen: "+ "system."+A.namespace+".Obj."+element.typ+"."+element.objname);
+        A.log.debug("Objekt holen: "+ "Obj."+element.typ+"."+element.objname);
 
-        A.getObject("system."+A.namespace+".Obj."+element.typ+"."+element.objname, function(err,obj) 
+        A.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
 if(obj==null || obj==undefined) 
 {
