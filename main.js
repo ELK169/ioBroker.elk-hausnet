@@ -610,7 +610,7 @@ OnData(data)
     OnFSCheck(id, sollstate)
     {
     this.log.debug("OnFSCheck: prüfen, ob "+id+" auf "+sollstate.val+" gesetzt wurde.");
-    this.getState(id, (err,state)=>{this.log.debug("Objektwert ist "+state.val.toString()+"  -  soll: "+sollstate.val);})   ;
+    this.getState(id, (err,state)=>{this.log.debug("Objektwert ist "+state.val.toString()+" ack="+state.ack+"  -  soll: "+sollstate.val);})   ;
     }
 
 
