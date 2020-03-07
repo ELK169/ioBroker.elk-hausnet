@@ -369,9 +369,10 @@ adapter.getStates('*', (err, states) =>
             obj.native.AnzFehlerAktuell=0;
         if(obj.common.role=="switch" && element.defaultwert!=null)    
             {
+            A.log.debug("jetziger Objektwert ist "+obj.val.toString());
             A.log.debug("Objekt auf "+element.defaultwert.toString()+" setzen.");
-
             A.setState(obj.val,element.defaultwert,false);  // FS schalten, wenn erforderlich
+            A.log.debug("Objektwert hinterher ist "+obj.val.toString());
             }
         }
         });
