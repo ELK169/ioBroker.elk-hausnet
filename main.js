@@ -607,11 +607,10 @@ OnData(data)
     // hier landen wir kurze Zeit nach dem Schalten eines Fernschalters, um zu prüfen,
     // ob er wirklich geschaltet hat. Wenn nicht, neu versuchen.
     // bei zu vielen Fehlern melden.
-    OnFSCheck(id, state)
+    OnFSCheck(id, sollstate)
     {
-    this.log.debug("OnFSCheck "+id+" "+state.val);
-
-
+    this.log.debug("OnFSCheck: prüfen, ob "+id+" auf "+state.val+" gesetzt wurde.");
+    A.getState(id, (err,state)=>{A.log.debug("Objektwert ist "+state.val.toString()+"  -  soll: "+sollstate.val);})   ;
     }
 
 
