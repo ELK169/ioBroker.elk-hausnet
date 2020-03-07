@@ -344,13 +344,13 @@ adapter.getStates('*', (err, states) =>
      // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
      // Fehlerzähler zurücksetzen
  A.log.info("Defaultwerte setzen...");
- Objekte.forEach(function(element) 
+ Objekte.forEach( (element) =>
     {
         var OName=A.namespace+".Obj."+element.typ+"."+element.objname;
 
         A.log.debug("Objekt holen: "+ OName);
 
-        this.getObject(OName, function(err,obj) 
+        A.getObject(OName, (err,obj) =>
         {   
             if(obj==null || obj==undefined) 
             {
