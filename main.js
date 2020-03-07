@@ -609,7 +609,7 @@ OnData(data)
     // bei zu vielen Fehlern melden.
     OnFSCheck(id, sollstate)
     {
-    this.log.debug("OnFSCheck: prüfen, ob "+id+" auf "+state.val+" gesetzt wurde.");
+    this.log.debug("OnFSCheck: prüfen, ob "+id+" auf "+sollstate.val+" gesetzt wurde.");
     A.getState(id, (err,state)=>{A.log.debug("Objektwert ist "+state.val.toString()+"  -  soll: "+sollstate.val);})   ;
     }
 
