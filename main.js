@@ -584,6 +584,7 @@ OnData(data)
                     if(obj)
                         {
                         this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
+                        this.log.debug("Connected:"+Connected);
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                         if(obj.common.role=="switch")
@@ -608,7 +609,7 @@ OnData(data)
     // bei zu vielen Fehlern melden.
     OnFSCheck(id, state)
     {
-    this.log.debug("OnFSCheck "+id+state.val);
+    this.log.debug("OnFSCheck "+id+" "+state.val);
 
 
     }
