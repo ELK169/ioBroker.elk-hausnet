@@ -584,8 +584,8 @@ OnData(data)
                     if(obj)
                         {
                         this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
-                        Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
-                        if(obj.role=="switch")
+                        //Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
+                        if(obj.common.role=="switch")
                             {
                             this.log.debug("OnFSCheck planen");
                             setTimeout(()=>{OnFSCheck(id,state)},FSTimeout);
