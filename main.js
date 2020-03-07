@@ -300,7 +300,7 @@ class ElkHausnet extends utils.Adapter {
    WD=setInterval(this.OnWatchdog,WDTime);
 //   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
-   setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte);},DefaultsSetzenNach);
+   setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
    //OnDefaultwerteSetzen(HN.Objekte);
    }
 
@@ -323,7 +323,7 @@ class ElkHausnet extends utils.Adapter {
 //}
 
 
-OnDefaultwerteSetzen(Objekte)
+OnDefaultwerteSetzen(Objekte,A)
  {
 
 
@@ -358,17 +358,17 @@ adapter.getStates('*', (err, states) =>
 
      // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
      // Fehlerzähler zurücksetzen
- this.log.info("Defaultwerte setzen...");
+ A.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
-        this.log.debug("Objekt holen: "+"Obj."+element.typ+"."+element.objname);
+        A.log.debug("Objekt holen: "+"Obj."+element.typ+"."+element.objname);
 
-        this.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
+        A.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
         obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
             {
-            this.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
+            A.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
         });
     })
@@ -466,7 +466,7 @@ if(zeit>30)
 
 OnData(data)
   {
-  Controller.Ada.log.info(data.toString(),"debug");
+  Controller.Ada.log.info(data.toString());
   if(Connected) 
     LetzterKontakt=Date.now();  
   // jetzt die empfangenen Daten verarbeiten
