@@ -409,9 +409,7 @@ adapter.getStates('*', (err, states) =>
 OnEnd()
     {
     Connected=false;
-    Controller.end;
-    Controller.destroy; 
-    if (IntTmr != null)
+     if (IntTmr != null)
         {
         clearInterval(IntTmr);
         IntTmr=null;
@@ -421,21 +419,23 @@ OnEnd()
         clearInterval(WD);
         WD=null;
         }
-    Ada.setState("info.connection", false, true);
-    Ada.log.info('Verbindung getrennt');
-    }
+    Controller.Ada.setState("info.connection", false, true);
+    Controller.Ada.log.info('Verbindung getrennt');
+    Controller.end;
+    Controller.destroy; 
+   }
 
 
 OnError(error)
 {
-    Ada.log.info('error: ' + error);
+    Controller.Ada.log.info('error: ' + error);
     if (IntTmr != null) 
         {
         clearInterval(IntTmr);
         IntTmr=null;
         }
     Connected=false;
-    Ada.setState("info.connection", false, true);
+    Controller.Ada.setState("info.connection", false, true);
     Controller.end();
     Controller.destroy();
   // nichts tun, der Watchdog kümmert sich drum
@@ -444,8 +444,8 @@ OnError(error)
 
 OnConnect()
 {
-   Ada.log.info("Mit Controller verbunden. Info abfragen...");
-   Ada.setState("info.connection", true, true);
+   Controller.Ada.log.info("Mit Controller verbunden. Info abfragen...");
+   Controller.Ada.setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
 }
@@ -466,21 +466,21 @@ if(zeit>30)
 
 OnData(data)
   {
-  Ada.log.info(data.toString(),"debug");
+  Controller.Ada.log.info(data.toString(),"debug");
   if(Connected) 
     LetzterKontakt=Date.now();  
   // jetzt die empfangenen Daten verarbeiten
   if(data.toString().startsWith("Info="))
     { // Antwort auf Info-Abfrage beim Start
     Connected=true;
-    Ada.log.info("Verbindung bestätigt.")
+    Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=Ada.setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
+    IntTmr=Controller.Ada.setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
     { // Antwort auf Startbefehl
-    Ada.log.info("Überwachung bestätigt.")
+    Controller.Ada.log.info("Überwachung bestätigt.")
     Controller.write("?Obj*\0"); // alle Werte abfragen
     return;
     }
@@ -489,18 +489,18 @@ OnData(data)
     { // Zustandsmeldung
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
-    Ada.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
+    Controller.Ada.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
     var neuerWert=false;
     if(w.startsWith("1"))
         neuerWert=true;
 
-    Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
+    Controller.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
-    var O=Ada.HoleHNObjekt(o);
+    var O=Controller.Ada.HoleHNObjekt(o);
     if(O!=null)
-        Ada.setState(O,neuerWert,true);
+        Controller.Ada.setState(O,neuerWert,true);
     else
-        Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
+        Controller.Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
     }
   }       
