@@ -628,28 +628,35 @@ OnData(data)
         else
             { 
             this.log.warn("Objektänderung von "+id+" wurde nicht bestätigt");
-            // Fehlerzähler hochzählen
-            this.getObject(id,(err,obj)=>
+            // Fehlerzähler hochzählen, wenn verbunden
+            if(Connected)
                 {
-                this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
-                obj.native.AnzFehlerAktuell++;
-                if(obj.native.AnzFehlerAktuell>MaxFSWdh)
-                    { // zu viele Fehler
-                    obj.native.AnzFehlerAktuell=0;
-                    obj.native.AnzFehlerGesamt++;
-                    // Status auf ack setzen, also aufgeben
-                    this.setState(id,!sollstate.val,true);
-                    this.OnPermanentFehler(id);
-                    }
-                else
-                    {   // nochmal versuchen
-                    this.log.debug("Neuer Versuch, Objekt "+id+" auf "+sollstate.val+" zu setzen");
-
-                    }
-                });
-
-            }
-        });
+                this.getObject(id,(err,obj)=>
+                    {
+                    this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
+                    obj.native.AnzFehlerAktuell++;
+                    if(obj.native.AnzFehlerAktuell>MaxFSWdh)
+                        { // zu viele Fehler
+                        obj.native.AnzFehlerAktuell=0;
+                        obj.native.AnzFehlerGesamt++;
+                        // Status auf ack setzen, also aufgeben
+                        this.setState(id,!sollstate.val,true);
+                        this.OnPermanentFehler(id);
+                        }
+                    else
+                        {   // nochmal versuchen
+                        this.log.debug("Neuer Versuch, Objekt "+id+" auf "+sollstate.val+" zu setzen");
+                        var StN=0;
+                        if(sollstate.val) StN=1;
+                        if(Connected)
+                            Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
+                        this.log.debug("OnFSCheck planen");
+                        setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                        }
+                    }); // getObject
+                }  // if(Connected)
+            } // else
+        }); // getState
     }
 
 
