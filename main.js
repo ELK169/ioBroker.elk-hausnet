@@ -291,13 +291,13 @@ class ElkHausnet extends utils.Adapter {
         this.subscribeStates("*");
 
         // Verbindung zum Controller aufbauen...
-        this.log.info("Verbindungsaufbau zum Controller...1");
+        this.log.info("Verbindungsaufbau zum Controller...");
         
    this.connectController(this.config.ControllerIP,this.config.ControllerPort);
    
-   this.log.info("Verbindungsaufbau zum Controller...2");
+   this.log.debug("nach Verbindungsaufbau zum Controller.");
 
-   WD=setInterval(this.OnWatchdog,WDTime);
+   WD=setInterval(()=>{this.OnWatchdog();},WDTime);
 //   var HNObjekte = $("elk-hausnet.0.Obj.*");
 
    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
@@ -466,7 +466,7 @@ if(zeit>30)
 
 OnData(data)
   {
-  Controller.Ada.log.info(data.toString());
+  Controller.Ada.log.debug(data.toString());
   if(Connected) 
     LetzterKontakt=Date.now();  
   // jetzt die empfangenen Daten verarbeiten
@@ -475,7 +475,7 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.info("Ping");} },PingIntervall); // alle 5 s Ping senden
+    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
