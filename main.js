@@ -356,7 +356,7 @@ if(obj==null || obj==undefined)
 }
 else
 {
-            A.log.debug("Objekt geholt: "+obj.name.toString());
+            A.log.debug("Objekt geholt: "+obj.toString());
 
             obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
