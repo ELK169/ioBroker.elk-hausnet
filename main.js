@@ -356,12 +356,13 @@ if(obj==null)
 }
 else
 {
-            A.log.debug("Objekt geholt: "+obj.toString());
-
+            A.log.debug("Objekt geholt: "+obj.id.toString());
 
             obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
             {
+            A.log.debug("Objekt auf "+element.defaultwert.toString()+" setzen.");
+
             A.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
         }
