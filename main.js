@@ -361,6 +361,9 @@ adapter.getStates('*', (err, states) =>
             A.log.debug("Objekt geholt: "+obj.toString());
 
             A.log.debug(obj.common.name.toString());
+            A.log.debug(obj.native.Nr);
+            A.log.debug(obj.role);
+            
            
 
             obj.native.AnzFehlerAktuell=0;
