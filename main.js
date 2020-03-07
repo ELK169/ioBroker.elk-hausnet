@@ -356,7 +356,7 @@ if(obj==null)
 }
 else
 {
-            A.log.debug("Objekt geholt: "+obj.stringify());
+            A.log.debug("Objekt geholt: "+obj.toString());
 
 
             obj.native.AnzFehlerAktuell=0;
