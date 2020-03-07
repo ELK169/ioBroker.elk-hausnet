@@ -395,7 +395,7 @@ adapter.getStates('*', (err, states) =>
         Controller.destroy;
         }
     Controller=new net.Socket();
-    Controller.Ada=Adapter;
+    Controller.Ada=this;
     Controller.setTimeout(5000);
     Controller.on('data',this.OnData);
     Controller.on('end',this.OnEnd);
