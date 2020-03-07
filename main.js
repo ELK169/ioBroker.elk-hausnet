@@ -360,7 +360,7 @@ adapter.getStates('*', (err, states) =>
             {
             A.log.debug("Objekt geholt: "+obj.toString());
 
-            A.log.debug("Objekt role: "+obj.role.toString());
+            A.log.debug(obj.common.name.toString());
            
 
             obj.native.AnzFehlerAktuell=0;
