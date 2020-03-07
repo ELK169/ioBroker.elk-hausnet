@@ -371,7 +371,7 @@ adapter.getStates('*', (err, states) =>
             {
             A.log.debug("Objekt auf "+element.defaultwert.toString()+" setzen.");
 
-            A.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
+            A.setState(obj.val,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
         }
         });
