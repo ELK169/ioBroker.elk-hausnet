@@ -584,7 +584,8 @@ OnData(data)
                     if(obj)
                         {
                         this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
-                        //Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
+                        if(Connected)
+                            Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                         if(obj.common.role=="switch")
                             {
                             this.log.debug("OnFSCheck planen");
@@ -593,12 +594,7 @@ OnData(data)
      
                         }
                 });
-
-                // nun etwas warten und nachsehen, ob die Änderung gemeldet wurde...
-                // nur bei FS
-                if(id.role=="switch")
-                    setTimeout(OnFSCheck(id,state),FSTimeout);
-            }
+             }
 
         } else {
             // The state was deleted
@@ -612,7 +608,7 @@ OnData(data)
     // bei zu vielen Fehlern melden.
     OnFSCheck(id, state)
     {
-    this.log.debug("OnFSCheck "+id+state);
+    this.log.debug("OnFSCheck "+id+state.val);
 
 
     }
