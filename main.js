@@ -575,15 +575,19 @@ OnData(data)
             this.log.info(`state ${id} geändert: ${state.val} (ack = ${state.ack})`);
             if(state.ack==false)
                 { // Status soll geändert werden...
-                var Nr=id.native.Nr;
                 var StNeu=0;
-                if(state==true) StNeu=1;
-                if(Nr==null) 
+                if(state.val) StNeu=1;
+
+                // Objektnummer holen
+                this.getObject(id,(err,Obj,StNeu)=>
                 {
-                    this.log.warn("Unbekanntes Objekt "+id.toString()+" soll geändert werden.");
-                    return;
-                }
-                Controller.write("Obj"+Nr.toString()+"="+StNeu.toString()+"\0");
+                    if(Obj)
+                        {
+                        this.log.debug("Objekt #"+Obj.native.Nr+" auf "+StNeu.toString()+" setzen");
+                        Controller.write("Obj"+Obj.native.Nr.toString()+"="+StNeu.toString()+"\0");
+                        }
+                });
+
                 // nun etwas warten und nachsehen, ob die Änderung gemeldet wurde...
                 // nur bei FS
                 if(id.role=="switch")
