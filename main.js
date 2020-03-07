@@ -362,6 +362,8 @@ adapter.getStates('*', (err, states) =>
  this.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
+        this.log.debug("Objekt holen: "+"Obj."+element.typ+"."+element.objname);
+        
        this.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
         obj.native.AnzFehlerAktuell=0;
@@ -473,7 +475,7 @@ OnData(data)
     Connected=true;
     this.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
+    IntTmr=this.Ada.setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
