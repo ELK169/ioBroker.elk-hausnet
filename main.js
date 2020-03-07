@@ -585,6 +585,12 @@ OnData(data)
                         {
                         this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
                         Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
+                        if(obj.role=="switch")
+                            {
+                            this.log.debug("OnFSCheck planen");
+                            setTimeout(()=>{OnFSCheck(id,state)},FSTimeout);
+                            }
+     
                         }
                 });
 
@@ -606,7 +612,7 @@ OnData(data)
     // bei zu vielen Fehlern melden.
     OnFSCheck(id, state)
     {
-
+    this.log.debug("OnFSCheck "+id+state);
 
 
     }
