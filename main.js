@@ -13,6 +13,7 @@ const PingIntervall=10000;
 const WDTime=30000; // Intervall des Watchdogs
 const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
 const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden
+const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -610,8 +611,56 @@ OnData(data)
     OnFSCheck(id, sollstate)
     {
     this.log.debug("OnFSCheck: prüfen, ob "+id+" auf "+sollstate.val+" gesetzt wurde.");
-    this.getState(id, (err,state)=>{this.log.debug("Objektwert ist "+state.val.toString()+" ack="+state.ack+"  -  soll: "+sollstate.val);})   ;
+    this.getState(id, (err,state)=>
+        {
+        this.log.debug("Objektwert ist "+state.val.toString()+" ack="+state.ack+"  -  soll: "+sollstate.val);
+        if(state.val== sollstate.val && MediaStreamTrackEvent.ack)
+            {
+            this.log.debug("Objekt wurde erfolgreich geschaltet, Bestätigung ist da.");
+            // Fehlerzähler auf 0 setzen
+            this.getObject(id,(err,obj)=>
+                {
+                this.log.debug("Fehlerzähler von "+obj.common.id+" auf 0 setzen");
+                obj.native.AnzFehlerAktuell=0;
+                this.log.debug("Fehlerzähler auf 0 gesetzt");
+                });
+            }
+        else
+            { 
+            this.log.warn("Objektänderung von "+id+" wurde nicht bestätigt");
+            // Fehlerzähler hochzählen
+            this.getObject(id,(err,obj)=>
+                {
+                this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
+                obj.native.AnzFehlerAktuell++;
+                if(obj.native.AnzFehlerAktuell>MaxFSWdh)
+                    { // zu viele Fehler
+                    obj.native.AnzFehlerAktuell=0;
+                    obj.native.AnzFehlerGesamt++;
+                    // Status auf ack setzen, also aufgeben
+                    this.setState(id,!sollstate.val,true);
+                    this.OnPermanentFehler(id);
+                    }
+                else
+                    {   // nochmal versuchen
+                    this.log.debug("Neuer Versuch, Objekt "+id+" auf "+sollstate.val+" zu setzen");
+
+                    }
+                });
+
+            }
+        });
     }
+
+
+
+
+    OnPermanentFehler(id)
+        {
+        this.log.error("nicht behebbarer Fehler bei "+id);
+        // ggf. weitere Benachrichtigungen...
+
+        }   
 
 
 
