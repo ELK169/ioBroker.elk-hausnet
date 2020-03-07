@@ -290,29 +290,14 @@ class ElkHausnet extends utils.Adapter {
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates("*");
 
-        // Verbindung zum Controller aufbauen...
-        this.log.info("Verbindungsaufbau zum Controller...");
+    // Verbindung zum Controller aufbauen...
+    this.log.info("Verbindungsaufbau zum Controller...");
         
-   this.connectController(this.config.ControllerIP,this.config.ControllerPort);
-   
-   this.log.debug("nach Verbindungsaufbau zum Controller.");
-
-   WD=setInterval(()=>{this.OnWatchdog();},WDTime);
-//   var HNObjekte = $("elk-hausnet.0.Obj.*");
-
-   setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
-   //OnDefaultwerteSetzen(HN.Objekte);
-   }
-
-
-
-
-
-
-
-
-
-
+    this.connectController(this.config.ControllerIP,this.config.ControllerPort);
+    this.log.debug("nach Verbindungsaufbau zum Controller.");
+    WD=setInterval(()=>{this.OnWatchdog();},WDTime);
+    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
+}
 
 
 
@@ -365,7 +350,10 @@ adapter.getStates('*', (err, states) =>
 
         A.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
-        obj.native.AnzFehlerAktuell=0;
+
+            A.log.debug("Objekt geholt: "+err.stringify()+"  -  "+obj.stringify());
+            
+            obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
             {
             A.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
