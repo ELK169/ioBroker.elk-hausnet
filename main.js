@@ -588,7 +588,7 @@ OnData(data)
                         if(obj.common.role=="switch")
                             {
                             this.log.debug("OnFSCheck planen");
-                            setTimeout(()=>{OnFSCheck(id,state)},FSTimeout);
+                            setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
                             }
      
                         }
