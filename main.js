@@ -362,12 +362,12 @@ adapter.getStates('*', (err, states) =>
 
             A.log.debug(obj.common.name.toString());
             A.log.debug(obj.native.Nr);
-            A.log.debug(obj.role);
+            A.log.debug(obj.common.role);
             
            
 
             obj.native.AnzFehlerAktuell=0;
-        if(obj.role=="switch" && element.defaultwert!=null)    
+        if(obj.common.role=="switch" && element.defaultwert!=null)    
             {
             A.log.debug("Objekt auf "+element.defaultwert.toString()+" setzen.");
 
