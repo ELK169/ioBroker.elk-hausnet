@@ -579,12 +579,12 @@ OnData(data)
                 if(state.val) StNeu=1;
 
                 // Objektnummer holen
-                this.getObject(id,(err,Obj,StNeu)=>
+                this.getObject(id,(err,obj)=>
                 {
-                    if(Obj)
+                    if(obj)
                         {
-                        this.log.debug("Objekt #"+Obj.native.Nr+" auf "+StNeu.toString()+" setzen");
-                        Controller.write("Obj"+Obj.native.Nr.toString()+"="+StNeu.toString()+"\0");
+                        this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
+                        Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                         }
                 });
 
