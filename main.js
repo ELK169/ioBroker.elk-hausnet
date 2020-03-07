@@ -368,7 +368,7 @@ adapter.getStates('*', (err, states) =>
         obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
             {
-                this.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
+            this.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
         });
     })
@@ -395,11 +395,12 @@ adapter.getStates('*', (err, states) =>
         Controller.destroy;
         }
     Controller=new net.Socket();
+    Controller.Ada=Adapter;
     Controller.setTimeout(5000);
     Controller.on('data',this.OnData);
     Controller.on('end',this.OnEnd);
     Controller.on('error',this.OnError);
-    Controller.Ada=this;
+    
     Controller.connect({host: host, port: port},this.OnConnect);
     this.log.info('Verbindungsversuch..2');
     }
@@ -420,21 +421,21 @@ OnEnd()
         clearInterval(WD);
         WD=null;
         }
-    this.setState("info.connection", false, true);
-    this.log.info('Verbindung getrennt');
+    Ada.setState("info.connection", false, true);
+    Ada.log.info('Verbindung getrennt');
     }
 
 
 OnError(error)
 {
-    this.log.info('error: ' + error);
+    Ada.log.info('error: ' + error);
     if (IntTmr != null) 
         {
         clearInterval(IntTmr);
         IntTmr=null;
         }
     Connected=false;
-    this.setState("info.connection", false, true);
+    Ada.setState("info.connection", false, true);
     Controller.end();
     Controller.destroy();
   // nichts tun, der Watchdog kümmert sich drum
@@ -443,8 +444,8 @@ OnError(error)
 
 OnConnect()
 {
-   this.Ada.log.info("Mit Controller verbunden. Info abfragen...");
-   this.Ada.setState("info.connection", true, true);
+   Ada.log.info("Mit Controller verbunden. Info abfragen...");
+   Ada.setState("info.connection", true, true);
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
 }
@@ -465,21 +466,21 @@ if(zeit>30)
 
 OnData(data)
   {
-  this.Ada.log.info(data.toString(),"debug");
+  Ada.log.info(data.toString(),"debug");
   if(Connected) 
     LetzterKontakt=Date.now();  
   // jetzt die empfangenen Daten verarbeiten
   if(data.toString().startsWith("Info="))
     { // Antwort auf Info-Abfrage beim Start
     Connected=true;
-    this.Ada.log.info("Verbindung bestätigt.")
+    Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=this.Ada.setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
+    IntTmr=Ada.setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
     { // Antwort auf Startbefehl
-    this.Ada.log.info("Überwachung bestätigt.")
+    Ada.log.info("Überwachung bestätigt.")
     Controller.write("?Obj*\0"); // alle Werte abfragen
     return;
     }
@@ -488,18 +489,18 @@ OnData(data)
     { // Zustandsmeldung
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
-    this.Ada.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
+    Ada.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
     var neuerWert=false;
     if(w.startsWith("1"))
         neuerWert=true;
 
-    this.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
+    Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
-    var O=this.Ada.HoleHNObjekt(o);
+    var O=Ada.HoleHNObjekt(o);
     if(O!=null)
-        this.Ada.setState(O,neuerWert,true);
+        Ada.setState(O,neuerWert,true);
     else
-        this.Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
+        Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
     }
   }       
