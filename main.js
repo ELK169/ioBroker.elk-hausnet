@@ -350,13 +350,13 @@ adapter.getStates('*', (err, states) =>
 
         A.getObject(A.namespace+".Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
-if(obj==null) 
+if(obj==null || obj==undefined) 
 {
     A.log.debug("Objekt ist null!");
 }
 else
 {
-            A.log.debug("Objekt geholt: "+obj.id.toString());
+            A.log.debug("Objekt geholt: "+obj.name.toString());
 
             obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
