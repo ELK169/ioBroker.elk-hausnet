@@ -67,9 +67,9 @@ class ElkHausnet extends utils.Adapter {
           this.log.error("Fehler: "+error.toString());
           return;
           }
-        this.log.info("Datei geladen: "+buf.length.toString()+" bytes");
+        this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
         var HNRaeume=JSON.parse(buf.toString()); 
-        this.log.info(HNRaeume.Raeume.length+ " Räume in Datei enthalten");
+        this.log.debug(HNRaeume.Raeume.length+ " Räume in Datei enthalten");
         HNRaeume.Raeume.forEach(element => 
             {
             this.log.info("Raum:"+element.name);
@@ -79,7 +79,7 @@ class ElkHausnet extends utils.Adapter {
         // Objekte laden
         this.log.info("Objekte laden...");
         buf= fs.readFileSync(this.config.Config+"hnobjekte.json");
-        this.log.info("Datei geladen: "+buf.length.toString()+" bytes");
+        this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
         var HN=JSON.parse(buf.toString()); 
         this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
         HN.Objekte.forEach(element => 
@@ -382,7 +382,7 @@ adapter.getStates('*', (err, states) =>
 
   connectController(host,port)
     {
-    this.log.info('Verbindungsversuch..1');
+    this.log.info('Verbindungsversuch..');
     Connected=false;
     if (IntTmr != null) 
         {
@@ -402,7 +402,7 @@ adapter.getStates('*', (err, states) =>
     Controller.on('error',this.OnError);
     
     Controller.connect({host: host, port: port},this.OnConnect);
-    this.log.info('Verbindungsversuch..2');
+    this.log.debug('nach Verbindungsversuch..');
     }
 
 
@@ -428,7 +428,7 @@ OnEnd()
 
 OnError(error)
 {
-    Controller.Ada.log.info('error: ' + error);
+    Controller.Ada.log.error('error: ' + error);
     if (IntTmr != null) 
         {
         clearInterval(IntTmr);
@@ -454,10 +454,10 @@ OnWatchdog()
 { // wird regelmäßig aufgerufen und schaut, wann der letzte Kontakt war
 var zeit=(Date.now()-LetzterKontakt) / 1000;
 var d=new Date(LetzterKontakt);
-this.log.info("Watchdog: letzter Kontakt war "+d.toLocaleTimeString("de-DE")+", also vor "+ zeit.toFixed(3)+" s","debug");
+this.log.debug("Watchdog: letzter Kontakt war "+d.toLocaleTimeString("de-DE")+", also vor "+ zeit.toFixed(3)+" s");
 if(zeit>30)
     { // zu lange nichts gehört, also neu verbinden
-    this.log.info("Watchdog abgelaufen: neu verbinden","warn");
+    this.log.warn("Watchdog abgelaufen: neu verbinden");
     Connected=false;
     this.connectController(this.config.ControllerIP,this.config.ControllerPort);
    }
@@ -489,18 +489,18 @@ OnData(data)
     { // Zustandsmeldung
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
-    Controller.Ada.log.info("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
+    Controller.Ada.log.debug("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
     var neuerWert=false;
     if(w.startsWith("1"))
         neuerWert=true;
 
-    Controller.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w,"debug");
+    Controller.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w);
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
     var O=Controller.Ada.HoleHNObjekt(o);
     if(O!=null)
         Controller.Ada.setState(O,neuerWert,true);
     else
-        Controller.Ada.log.info("Wertänderung für unbekanntes Objekt erhalten","warn");
+        Controller.Ada.log.warn("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
     }
   }       
@@ -570,7 +570,7 @@ OnData(data)
                 if(state==true) StNeu=1;
                 if(Nr==null) 
                 {
-                    this.log.info("Unbekanntes Objekt "+id.toString()+" soll geändert werden.","error");
+                    this.log.warn("Unbekanntes Objekt "+id.toString()+" soll geändert werden.");
                     return;
                 }
                 Controller.write("Obj"+Nr.toString()+"="+StNeu.toString()+"\0");
