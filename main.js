@@ -373,9 +373,9 @@ adapter.getStates('*', (err, states) =>
                 A.getState(obj, (err,state)=>{A.log.debug("Objektwert vorher ist "+state.val.toString());})   ;
            
             A.log.debug("Objekt auf "+element.defaultwert.toString()+" setzen.");
-            A.setState(obj.val,element.defaultwert,false);  // FS schalten, wenn erforderlich
+            A.setState(obj._id,element.defaultwert,false);  // FS schalten, wenn erforderlich
 
-            A.getState(obj, (err,state)=>{A.log.debug("Objektwert vorher ist "+state.val.toString());})   ;
+           // A.getState(obj, (err,state)=>{A.log.debug("Objektwert hinterher ist "+state.val.toString());})   ;
 
 //            A.log.debug("Objektwert hinterher ist "+obj.val.toString());
             }
