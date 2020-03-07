@@ -614,7 +614,7 @@ OnData(data)
     this.getState(id, (err,state)=>
         {
         this.log.debug("Objektwert ist "+state.val.toString()+" ack="+state.ack+"  -  soll: "+sollstate.val);
-        if(state.val== sollstate.val && MediaStreamTrackEvent.ack)
+        if((state.val==sollstate.val) && state.ack)
             {
             this.log.debug("Objekt wurde erfolgreich geschaltet, Bestätigung ist da.");
             // Fehlerzähler auf 0 setzen
