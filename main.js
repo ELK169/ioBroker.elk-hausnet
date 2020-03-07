@@ -475,7 +475,7 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=Controller.Ada.setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
+    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); log("Ping");} },PingIntervall); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
