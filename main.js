@@ -350,14 +350,21 @@ adapter.getStates('*', (err, states) =>
 
         A.getObject(A.namespace+".Obj."+element.typ+"."+element.objname, function(err,obj) 
         {   
-
+if(obj==null) 
+{
+    A.log.debug("Objekt ist null!");
+}
+else
+{
             A.log.debug("Objekt geholt: "+err.stringify()+"  -  "+obj.stringify());
-            
+
+
             obj.native.AnzFehlerAktuell=0;
         if(obj.role=="switch" && element.defaultwert!=null)    
             {
             A.setState(obj,element.defaultwert,false);  // FS schalten, wenn erforderlich
             }
+        }
         });
     })
 }
