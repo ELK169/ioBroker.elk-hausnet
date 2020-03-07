@@ -346,17 +346,20 @@ adapter.getStates('*', (err, states) =>
  A.log.info("Defaultwerte setzen...");
  Objekte.forEach(function(element) 
     {
-        A.log.debug("Objekt holen: "+ "Obj."+element.typ+"."+element.objname);
+        var OName="Obj."+element.typ+"."+element.objname;
 
-        A.getObject("Obj."+element.typ+"."+element.objname, function(err,obj) 
+        A.log.debug("Objekt holen: "+ OName);
+
+        dom.getObject(OName, function(err,obj) 
         {   
-if(obj==null || obj==undefined) 
-{
-    A.log.debug("Objekt ist null!");
-}
-else
-{
+            if(obj==null || obj==undefined) 
+            {
+                A.log.debug("Objekt ist null!");
+            }
+            else
+            {
             A.log.debug("Objekt geholt: "+obj.toString());
+
             A.log.debug("Objekt role: "+obj.role.toString());
            
 
