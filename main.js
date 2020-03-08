@@ -536,34 +536,7 @@ OnData(data)
         }
     this.log.debug("Ergebnis: "+fund);
     return(fund.objname);
-
-
-/*    HN.Objekte.forEach( (element) =>
-        {
-        var OName=A.namespace+".Obj."+element.typ+"."+element.objname;
-        A.log.debug("Objekt suchen: "+ OName);
-
-        A.getObject(OName, (err,obj) =>
-           {
-           A.log.debug("Objekt gefunden: "+obj.native.Nr);
-           if(suchNr==obj.native.Nr)
-            { // gefunden
-            fund=obj.common.id;
-            
-            }    
-     HNObjekte.each(function(id, i) 
-      {
-      var O=getObject(id);
-      if(O.native.Nr==suchNr)
-        {
-        fund=id;
-        log("Objekt gefunden: "+fund.toString(),"debug");
-        }
-      });
-      return fund;
-      return null;*/
     }
-
 
 
 
@@ -600,39 +573,46 @@ OnData(data)
      * @param {string} id
      * @param {ioBroker.State | null | undefined} state
      */
-    onStateChange(id, state) {
+    onStateChange(id, state) 
+        {
         if (state) {
             // The state was changed
-            this.log.info(`state ${id} geändert: ${state.val} (ack = ${state.ack})`);
+            this.log.debug(`state ${id} geändert: ${state.val} (ack = ${state.ack})`);
             if(state.ack==false)
                 { // Status soll geändert werden...
-                var StNeu=0;
-                if(state.val) StNeu=1;
+                if(Connected)
+                    {
+                    var StNeu=0;
+                    if(state.val) StNeu=1;
 
-                // Objektnummer holen
-                this.getObject(id,(err,obj)=>
-                {
-                    if(obj)
+                    // Objektnummer holen
+                    this.getObject(id,(err,obj)=>
                         {
-                        this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
-                        this.log.debug("Connected:"+Connected);
-                        if(Connected)
-                            Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
-                        if(obj.common.role=="switch")
+                        if(obj)
                             {
-                            this.log.debug("OnFSCheck planen");
-                            setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                            this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
+                            obj.native.ack=obj.
+                            Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
+                            if(obj.common.role=="switch")
+                                {
+                                this.log.debug("OnFSCheck planen");
+                                setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                                }
                             }
-     
-                        }
-                });
-             }
-
-        } else {
+                        });
+                    }
+                else
+                    {
+                    this.log.error("Offline! Status kann nicht geändert werden.");
+                    }
+                }
+            }
+        else 
+            {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
+            }
         }
-    }
 
 
     // hier landen wir kurze Zeit nach dem Schalten eines Fernschalters, um zu prüfen,
