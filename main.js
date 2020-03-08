@@ -530,11 +530,12 @@ OnData(data)
     {
     this.log.debug("suchen nach "+suchNr);
     var fund=HN.Objekte.find(el=>el.objnr==suchNr);
+    if(!fund)
+        { // nicht gefunden
+        return null;
+        }
     this.log.debug("Ergebnis: "+fund);
-
     return(fund.objname);
-
-
 
 
 /*    HN.Objekte.forEach( (element) =>
