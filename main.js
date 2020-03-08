@@ -519,9 +519,9 @@ OnData(data)
 
  HoleHNObjekt(suchNr)
     {
-    A.log.debug("suchen nach "+suchNr);
+    this.log.debug("suchen nach "+suchNr);
     var fund=HN.Objekte.find(el=>el.objnr==suchNr);
-    A.log.debug("Ergebnis: "+fund);
+    this.log.debug("Ergebnis: "+fund);
 
     return(fund.objname);
 
