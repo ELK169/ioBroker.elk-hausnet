@@ -20,8 +20,8 @@ var LetzterKontakt=Date.now();
 var IntTmr=null;
 var Connected=false;
 var Controller;
-
-var gthis=this;
+var HNRaeume;
+var HN;
 
 
 class ElkHausnet extends utils.Adapter {
@@ -69,7 +69,7 @@ class ElkHausnet extends utils.Adapter {
           return;
           }
         this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
-        var HNRaeume=JSON.parse(buf.toString()); 
+        HNRaeume=JSON.parse(buf.toString()); 
         this.log.debug(HNRaeume.Raeume.length+ " Räume in Datei enthalten");
         HNRaeume.Raeume.forEach(element => 
             {
@@ -81,7 +81,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Objekte laden...");
         buf= fs.readFileSync(this.config.Config+"hnobjekte.json");
         this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
-        var HN=JSON.parse(buf.toString()); 
+        HN=JSON.parse(buf.toString()); 
         this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
         HN.Objekte.forEach(element => 
             {
