@@ -591,7 +591,6 @@ OnData(data)
                         if(obj)
                             {
                             this.log.debug("Objekt #"+obj.native.Nr+" auf "+StNeu+" setzen");
-                            obj.native.ack=obj.
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                             if(obj.common.role=="switch")
                                 {
