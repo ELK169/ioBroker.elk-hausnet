@@ -652,6 +652,7 @@ OnData(data)
                 {
                 this.log.debug("Fehlerzähler von "+obj.common.id+" auf 0 setzen");
                 obj.native.AnzFehlerAktuell=0;
+                this.setObject(id,obj);
                 this.log.debug("Fehlerzähler auf 0 gesetzt");
                 });
             }
@@ -665,10 +666,12 @@ OnData(data)
                     {
                     this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
                     obj.native.AnzFehlerAktuell++;
+                    this.setObject(id,obj);
                     if(obj.native.AnzFehlerAktuell>MaxFSWdh)
                         { // zu viele Fehler
                         obj.native.AnzFehlerAktuell=0;
                         obj.native.AnzFehlerGesamt++;
+                        this.setObject(id,obj);
                         // Status auf ack setzen, also aufgeben
                         this.setState(id,!sollstate.val,true);
                         this.OnPermanentFehler(id);
