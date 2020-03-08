@@ -518,7 +518,10 @@ OnData(data)
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
     var O=Controller.Ada.HoleHNObjekt(o);
     if(O!=null)
+        {
+        Controller.Ada.log.warn("Objekt gefunden "+O.common.id,"debug");    
         Controller.Ada.setState(O,neuerWert,true);
+        }
     else
         Controller.Ada.log.warn("Wertänderung für unbekanntes Objekt erhalten","warn");
     return;
