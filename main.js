@@ -531,7 +531,7 @@ OnData(data)
         return null;
         }
     this.log.debug("Ergebnis: "+fund);
-    return(A.namespace+"."+fund.typ+"."+fund.objname);
+    return(A.namespace+".Obj."+fund.typ+"."+fund.objname);
     }
 
 
