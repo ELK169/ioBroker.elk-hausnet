@@ -519,9 +519,29 @@ OnData(data)
 
  HoleHNObjekt(suchNr)
     {
-        /*
-    var fund=null;
-    HNObjekte.each(function(id, i) 
+    A.log.debug("suchen nach "+suchNr);
+    var fund=HN.Objekte.find(el=>el.objnr==suchNr);
+    A.log.debug("Ergebnis: "+fund);
+
+    return(fund.objname);
+
+
+
+
+/*    HN.Objekte.forEach( (element) =>
+        {
+        var OName=A.namespace+".Obj."+element.typ+"."+element.objname;
+        A.log.debug("Objekt suchen: "+ OName);
+
+        A.getObject(OName, (err,obj) =>
+           {
+           A.log.debug("Objekt gefunden: "+obj.native.Nr);
+           if(suchNr==obj.native.Nr)
+            { // gefunden
+            fund=obj.common.id;
+            
+            }    
+     HNObjekte.each(function(id, i) 
       {
       var O=getObject(id);
       if(O.native.Nr==suchNr)
@@ -530,8 +550,8 @@ OnData(data)
         log("Objekt gefunden: "+fund.toString(),"debug");
         }
       });
-      return fund;*/
-      return null;
+      return fund;
+      return null;*/
     }
 
 
