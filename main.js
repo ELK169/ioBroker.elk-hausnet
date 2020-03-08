@@ -298,6 +298,15 @@ class ElkHausnet extends utils.Adapter {
     this.log.debug("nach Verbindungsaufbau zum Controller.");
     WD=setInterval(()=>{this.OnWatchdog();},WDTime);
     setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
+
+
+// nur zum Test....
+this.log.debug("Objekt 0 suchen...");
+var xxx=this.HoleHNObjekt(0);
+this.log.debug("Objekt gefunden: "+xxx);
+
+
+
 }
 
 
