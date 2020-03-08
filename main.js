@@ -300,13 +300,6 @@ class ElkHausnet extends utils.Adapter {
     setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
 
 
-// nur zum Test....
-this.log.debug("Objekt 0 suchen...");
-var xxx=this.HoleHNObjekt(0);
-this.log.debug("Objekt gefunden: "+xxx);
-
-
-
 }
 
 
@@ -516,7 +509,7 @@ OnData(data)
 
     Controller.Ada.log.info("neuer Zustand von Objekt "+o+" ist "+w);
     // jetzt zugehöriges Objekt finden und Wert setzen (mit ack=true)
-    var O=Controller.Ada.HoleHNObjekt(o);
+    var O=Controller.Ada.HoleHNObjekt(o,Controller.Ada);
     if(O!=null)
         {
         Controller.Ada.log.debug("Objekt gefunden "+O);    
@@ -529,7 +522,7 @@ OnData(data)
   }       
 
 
- HoleHNObjekt(suchNr)
+ HoleHNObjekt(suchNr,A)
     {
     this.log.debug("suchen nach "+suchNr);
     var fund=HN.Objekte.find(el=>el.objnr==suchNr);
@@ -538,7 +531,7 @@ OnData(data)
         return null;
         }
     this.log.debug("Ergebnis: "+fund);
-    return(adapter.namespace+"."+fund.typ+"."+fund.objname);
+    return(A.namespace+"."+fund.typ+"."+fund.objname);
     }
 
 
