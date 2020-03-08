@@ -519,7 +519,7 @@ OnData(data)
     var O=Controller.Ada.HoleHNObjekt(o);
     if(O!=null)
         {
-        Controller.Ada.log.warn("Objekt gefunden "+O.common.id,"debug");    
+        Controller.Ada.log.warn("Objekt gefunden "+O,"debug");    
         Controller.Ada.setState(O,neuerWert,true);
         }
     else
