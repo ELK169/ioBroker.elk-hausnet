@@ -648,7 +648,7 @@ OnData(data)
                         obj.native.AnzFehlerGesamt++;
                         this.setObject(id,obj);
                         // jetzt nochmal den aktuellen Status abfragen, dann ist wieder alles synchron...
-                        Controller.write("Obj"+obj.native.Nr.toString()+"?\0");
+                        Controller.write("?Obj"+obj.native.Nr.toString()+"\0");
                         this.OnPermanentFehler(id);
                         }
                     else
