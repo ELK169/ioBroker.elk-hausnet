@@ -647,8 +647,8 @@ OnData(data)
                         obj.native.AnzFehlerAktuell=0;
                         obj.native.AnzFehlerGesamt++;
                         this.setObject(id,obj);
-                        // Status auf ack setzen, also aufgeben
-                        this.setState(id,!sollstate.val,true);
+                        // jetzt nochmal den aktuellen Status abfragen, dann ist wieder alles synchron...
+                        Controller.write("Obj"+obj.native.Nr.toString()+"?\0");
                         this.OnPermanentFehler(id);
                         }
                     else
