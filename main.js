@@ -58,24 +58,24 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Controller-Port: " + this.config.ControllerPort);
 
         // Konfigurationsdateien laden
-        this.log.info("Räume laden...");
-        try 
-          {
-          var buf= fs.readFileSync(this.config.Config+"hnraeume.json");
-          }
-        catch (error) 
-          {
-          this.log.error("Fehler: "+error.toString());
-          return;
-          }
-        this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
-        HNRaeume=JSON.parse(buf.toString()); 
-        this.log.debug(HNRaeume.Raeume.length+ " Räume in Datei enthalten");
-        HNRaeume.Raeume.forEach(element => 
-            {
-            this.log.info("Raum:"+element.name);
-            // hier ggf. Objekte für die Räume anlegen
-            });
+        // this.log.info("Räume laden...");
+        // try 
+        //   {
+        //   var buf= fs.readFileSync(this.config.Config+"hnraeume.json");
+        //   }
+        // catch (error) 
+        //   {
+        //   this.log.error("Fehler: "+error.toString());
+        //   return;
+        //   }
+        // this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
+        // HNRaeume=JSON.parse(buf.toString()); 
+        // this.log.debug(HNRaeume.Raeume.length+ " Räume in Datei enthalten");
+        // HNRaeume.Raeume.forEach(element => 
+        //     {
+        //     this.log.info("Raum:"+element.name);
+        //     // hier ggf. Objekte für die Räume anlegen
+        //     });
 
         // Objekte laden
         this.log.info("Objekte laden...");
