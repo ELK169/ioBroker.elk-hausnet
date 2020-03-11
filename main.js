@@ -83,6 +83,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
         HN=JSON.parse(buf.toString()); 
         this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
+
         HN.Objekte.forEach(element => 
             {
             this.log.info("Objekt anlegen: "+element.objname +" ("+element.name+")");
@@ -277,7 +278,7 @@ class ElkHausnet extends utils.Adapter {
                         {
                         name: element.name,
                         type: "number",
-                        role: "value.brightness ",
+                        role: "value.brightness",
                         read: true,
                         write: false,
                         },
@@ -285,6 +286,53 @@ class ElkHausnet extends utils.Adapter {
                     });
                     break;
                 } // switch
+            // hier kommen wir an, wenn das Objekt erzeugt wurde
+            // jetzt wird es noch zur Raum- und Funktionsliste hinzugefügt
+            var enu = getObject("enum.rooms."+element.raum);
+            if (enu) 
+                { // nur, wenn es den Raum auch gibt
+                var pos = enu.common.members.indexOf(newStateId);
+                if (pos === -1) 
+                    { // nur, wenn nicht schon da
+                    enu.common.members.push(newStateId);
+                    enu.from = "system.adapter.elk-hausnet.0.Obj."+element.typ+"."+element.objname;
+                    enu.ts = new Date().getTime();
+                    setObject(enumName, enu);
+                    }
+                }
+
+            var func;
+            switch(element.typ)
+                {   
+                case   "FS": func="fernschalter"; break;
+                case   "SD": func="steckdose"; break;
+                case   "LI": func="licht"; break;
+                case   "REL": func="relais"; break;
+                case   "IMP": func="impulsgeber"; break;
+                case   "DIMMER": func="licht"; break;
+                case   "FENSTER": func="fensterkontakt"; break;
+                case   "TUER": func="türkontakt"; break;
+                case   "RIEGEL": func="schloss"; break;
+                case   "TASTER": func="taster"; break;
+                case   "BM": func="bewegungsmelder"; break;
+                case   "LS": func="kontakt"; break;
+                case   "KONTAKT": func="kontakt"; break;
+                case   "STROM": func="messwert"; break;
+                case   "TEMP": func="messwert"; break;
+                case   "HELL": func="messwert"; break;
+                }
+            enu = getObject("enum.functions."+func);
+            if (enu) 
+                { // nur, wenn es die Funktion auch gibt
+                var pos = enu.common.members.indexOf(newStateId);
+                if (pos === -1) 
+                    { // nur, wenn nicht schon da
+                    enu.common.members.push(newStateId);
+                    enu.from = "system.adapter.elk-hausnet.0.Obj."+element.typ+"."+element.objname;
+                    enu.ts = new Date().getTime();
+                    setObject(enumName, enu);
+                    }
+                }
             });
 
 

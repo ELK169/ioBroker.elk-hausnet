@@ -2,7 +2,7 @@ JSON-Datei HNRaeume:
 
 {"Raeume" : 
 [
-{"nr" :  0 ,"obj" : "Aussen","name": "Außen"},
+{"nr" :  0 ,"obj" : "aussen","name": "Außen"},
 {"nr" :  1 ,"obj" : "AnGarage","name": "an der Garage"},
 .
 .
@@ -10,7 +10,7 @@ JSON-Datei HNRaeume:
 ]}
 
 nr: laufende Raumnummer
-obj: interner Objektname
+obj: interner Objektname in der Räume-enum im ioBroker
 name: benutzerseitiger Name
 
 
@@ -33,7 +33,9 @@ raum: Montageort des Objekts
 typ: Typ des Objekts:
     
     Sensor/Aktor-Kombinationen: (Benutzer kann direkt ändern)
-    FS: Fernschalter, hat digitalen Zustand und kann durch Impuls geschaltet werden
+    FS: allgemeiner Fernschalter, hat digitalen Zustand und kann durch Impuls geschaltet werden
+    SD: Fernschalter, der eine Steckdose schaltet
+    LI: Fernschalter, der Licht schaltet (ggf. auch über eine Steckdose)
     REL: Relais, hat digitalen Zustand und kann geschaltet werden
     IMP: Impulsrelais, hat keinen Zustand, kann per Impuls aktiviert werden
     DIMMER: hat analogen Zustand
