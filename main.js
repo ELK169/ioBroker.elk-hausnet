@@ -293,7 +293,7 @@ class ElkHausnet extends utils.Adapter {
             this.log.debug("Objekt "+element.objname+" wurde angelegt oder war vorhanden.");
             this.log.debug("jetzt Raum  "+element.raum+" laden.");
 
-            this.getObject("enum.rooms."+element.raum, (enu)=>
+            adapter.getObject("enum.rooms."+element.raum, (enu)=>
                 {
                 this.log.debug("enum.rooms."+element.raum + " = "+ enu);
                 if (enu) 
