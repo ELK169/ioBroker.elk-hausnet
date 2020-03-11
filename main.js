@@ -291,8 +291,11 @@ class ElkHausnet extends utils.Adapter {
             // jetzt wird es noch zur Raum- und Funktionsliste hinzugefügt
 
             this.log.debug("Objekt "+element.objname+" wurde angelegt oder war vorhanden.");
+            this.log.debug("jetzt Raum  "+element.raum+" laden.");
 
             var enu = getObject("enum.rooms."+element.raum);
+            this.log.debug("enum.rooms."+element.raum + " = "+ enu);
+
             if (enu) 
                 { // nur, wenn es den Raum auch gibt
                 this.log.debug("Raum "+element.raum+" ist vorhanden.");
