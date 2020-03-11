@@ -78,8 +78,8 @@ class ElkHausnet extends utils.Adapter {
         //     });
 
         // Objekte laden
-        this.log.info("Objekte laden...");
-        buf= fs.readFileSync(this.config.Config+"hnobjekte.json");
+        this.log.info("Objekte laden aus: "+this.config.Config+"HNObjekte.json");
+        buf= fs.readFileSync(this.config.Config+"HNObjekte.json");
         this.log.debug("Datei geladen: "+buf.length.toString()+" bytes");
         HN=JSON.parse(buf.toString()); 
         this.log.info(HN.Objekte.length+ " Objekte in Datei enthalten");
