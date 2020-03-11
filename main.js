@@ -367,8 +367,6 @@ class ElkHausnet extends utils.Adapter {
     this.log.debug("nach Verbindungsaufbau zum Controller.");
     WD=setInterval(()=>{this.OnWatchdog();},WDTime);
     setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
-
-
 }
 
 
