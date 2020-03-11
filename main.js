@@ -47,7 +47,7 @@ class ElkHausnet extends utils.Adapter {
     async onReady() 
         {
         // Initialize your adapter here
-
+        var buf;
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
