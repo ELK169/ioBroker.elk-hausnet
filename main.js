@@ -293,28 +293,32 @@ class ElkHausnet extends utils.Adapter {
             this.log.debug("Objekt "+element.objname+" wurde angelegt oder war vorhanden.");
             this.log.debug("jetzt Raum  "+element.raum+" laden.");
 
-            var enu = getObject("enum.rooms."+element.raum);
-            this.log.debug("enum.rooms."+element.raum + " = "+ enu);
-
-            if (enu) 
-                { // nur, wenn es den Raum auch gibt
-                this.log.debug("Raum "+element.raum+" ist vorhanden.");
-                var pos = enu.common.members.indexOf(newStateId);
-                if (pos === -1) 
-                    { // nur, wenn nicht schon da
-                    this.log.debug("Raum "+element.raum+" ist in der Aufzählung "+enu.common.members+" noch nicht vorhanden, also hinzufügen.");
-                    enu.common.members.push(newStateId);
-                    enu.from = "system.adapter.elk-hausnet.0.Obj."+element.typ+"."+element.objname;
-                    enu.ts = new Date().getTime();
-                    setObject(enumName, enu);
-                    }
-                }
-            else
+            this.getObject("enum.rooms."+element.raum, (enu)=>
                 {
-                this.log.error("Raum "+element.raum+" nicht gefunden.");
-                }
+                this.log.debug("enum.rooms."+element.raum + " = "+ enu);
+                if (enu) 
+                    { // nur, wenn es den Raum auch gibt
+                    this.log.debug("Raum "+element.raum+" ist vorhanden.");
+                    var pos = enu.common.members.indexOf(newStateId);
+                    if (pos === -1) 
+                        { // nur, wenn nicht schon da
+                        this.log.debug("Raum "+element.raum+" ist in der Aufzählung "+enu.common.members+" noch nicht vorhanden, also hinzufügen.");
+                        enu.common.members.push(newStateId);
+                        enu.from = "system.adapter.elk-hausnet.0.Obj."+element.typ+"."+element.objname;
+                        enu.ts = new Date().getTime();
+                        setObject(enumName, enu);
+                        }
+                    }
+                else
+                    {
+                    this.log.error("Raum "+element.raum+" nicht gefunden.");
+                    }
+                });
+            
+            
 
-               
+/*
+
             var func;
             switch(element.typ)
                 {   
@@ -347,8 +351,11 @@ class ElkHausnet extends utils.Adapter {
                     setObject(enumName, enu);
                     }
                 }
-            });
 
+
+*/
+
+            });
 
         // in this template all states changes inside the adapters namespace are subscribed
         this.subscribeStates("*");
