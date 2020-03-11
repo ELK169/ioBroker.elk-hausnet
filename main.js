@@ -290,30 +290,30 @@ class ElkHausnet extends utils.Adapter {
             // hier kommen wir an, wenn das Objekt erzeugt wurde
             // jetzt wird es noch zur Raum- und Funktionsliste hinzugefügt
 
-            this.log.debug("Objekt "+element.objname+" wurde angelegt oder war vorhanden.");
-            this.log.debug("jetzt Raum  "+element.raum+" laden.");
+            // this.log.debug("Objekt "+element.objname+" wurde angelegt oder war vorhanden.");
+            // this.log.debug("jetzt Raum  "+element.raum+" laden.");
 
-            adapter.getObject("enum.rooms."+element.raum, (enu)=>
-                {
-                this.log.debug("enum.rooms."+element.raum + " = "+ enu);
-                if (enu) 
-                    { // nur, wenn es den Raum auch gibt
-                    this.log.debug("Raum "+element.raum+" ist vorhanden.");
-                    var pos = enu.common.members.indexOf(newStateId);
-                    if (pos === -1) 
-                        { // nur, wenn nicht schon da
-                        this.log.debug("Raum "+element.raum+" ist in der Aufzählung "+enu.common.members+" noch nicht vorhanden, also hinzufügen.");
-                        enu.common.members.push(newStateId);
-                        enu.from = "system.adapter.elk-hausnet.0.Obj."+element.typ+"."+element.objname;
-                        enu.ts = new Date().getTime();
-                        setObject(enumName, enu);
-                        }
-                    }
-                else
-                    {
-                    this.log.error("Raum "+element.raum+" nicht gefunden.");
-                    }
-                });
+            // this.getObject("enum.rooms."+element.raum, (enu)=>
+            //     {
+            //     this.log.debug("enum.rooms."+element.raum + " = "+ enu);
+            //     if (enu) 
+            //         { // nur, wenn es den Raum auch gibt
+            //         this.log.debug("Raum "+element.raum+" ist vorhanden.");
+            //         var pos = enu.common.members.indexOf(newStateId);
+            //         if (pos === -1) 
+            //             { // nur, wenn nicht schon da
+            //             this.log.debug("Raum "+element.raum+" ist in der Aufzählung "+enu.common.members+" noch nicht vorhanden, also hinzufügen.");
+            //             enu.common.members.push(newStateId);
+            //             enu.from = "system.adapter.elk-hausnet.0.Obj."+element.typ+"."+element.objname;
+            //             enu.ts = new Date().getTime();
+            //             setObject(enumName, enu);
+            //             }
+            //         }
+            //     else
+            //         {
+            //         this.log.error("Raum "+element.raum+" nicht gefunden.");
+            //         }
+            //     });
             
             
 
