@@ -59,7 +59,7 @@ class ElkHausnet extends utils.Adapter {
 
         PingZeit=this.config.PingZeit;
         WDZeit=this.config.WDZeit;
-        FSCheckZeit=this.config.FSCheckZeit;
+//        FSCheckZeit=this.config.FSCheckZeit;
         DefaultsSetzenNach=this.config.DefaultsSetzenNach;
         FSVersuche=this.config.FSVersuche;
 
