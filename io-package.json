@@ -60,11 +60,11 @@
         "ControllerIP": "192.168.169.80",
         "Config": "\\\\ELKSRV11\\HN\\",
         "ControllerPort": "42169",
-        "PingZeit": 5000,
-        "WDZeit": 30000,
-        "DefaultsSetzenNach": 5000,
-        "FSVersuche": 3,
-        "FSCheckZeit":1000
+        "PingZeit": "5000",
+        "WDZeit": "30000",
+        "DefaultsSetzenNach": "5000",
+        "FSVersuche": "3",
+        "FSCheckZeit": "1000"
     },
     "objects": [],
     "instanceObjects": [
