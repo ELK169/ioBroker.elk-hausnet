@@ -1,45 +1,21 @@
 {
     "common": {
         "name": "elk-hausnet",
-        "version": "0.0.2",
+        "version": "1.0.0",
         "news": {
             "0.0.2": {
                 "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "de": "Erstveröffentlichung"
             }
         },
         "title": "ELK HausNet",
         "titleLang": {
             "en": "ELK HausNet",
-            "de": "ELK HausNet",
-            "ru": "ELK HausNet",
-            "pt": "ELK HausNet",
-            "nl": "ELK HausNet",
-            "fr": "ELK HausNet",
-            "it": "ELK HausNet",
-            "es": "ELK HausNet",
-            "pl": "ELK HausNet",
-            "zh-cn": "ELK HausNet"
+            "de": "ELK HausNet"
         },
         "desc": {
             "en": "ELK-HausNet",
-            "de": "ELK-HausNet",
-            "ru": "ELK-hausnet",
-            "pt": "ELK-hausnet",
-            "nl": "ELK-hausnet",
-            "fr": "ELK-hausnet",
-            "it": "ELK-hausnet",
-            "es": "ELK-hausnet",
-            "pl": "ELK-hausnet",
-            "zh-cn": "麋鹿网"
+            "de": "ELK-HausNet"
         },
         "authors": [
             "ELK <Andreas.Schultze@ELK-Datensysteme.de>"
@@ -69,15 +45,7 @@
             "singleton": true,
             "name": {
                 "en": "ELK HausNet",
-                "de": "ELK HausNet",
-                "ru": "ELK HausNet",
-                "pt": "ELK HausNet",
-                "nl": "ELK HausNet",
-                "fr": "ELK HausNet",
-                "it": "ELK HausNet",
-                "es": "ELK HausNet",
-                "pl": "ELK HausNet",
-                "zh-cn": "ELK HausNet"
+                "de": "ELK HausNet"
             },
             "link": "",
             "fa-icon": "info"
@@ -89,9 +57,14 @@
         ]
     },
     "native": {
-        "ControllerIP": "192.168.169.125",
+        "ControllerIP": "192.168.169.80",
         "Config": "\\\\ELKSRV11\\HN\\",
-        "ControllerPort": "42169"
+        "ControllerPort": "42169",
+        "PingZeit": 5000,
+        "WDZeit": 30000,
+        "DefaultsSetzenNach": 5000,
+        "FSVersuche": 3,
+        "FSCheckZeit":1000
     },
     "objects": [],
     "instanceObjects": [

@@ -9,11 +9,11 @@
 const utils = require("@iobroker/adapter-core");
 const fs = require("fs");
 const net = require("net");
-const PingIntervall=10000;
-const WDTime=30000; // Intervall des Watchdogs
-const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat
-const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden
-const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet
+//const PingIntervall=10000;// neu: PingZeit
+//const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
+//const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat// neu: FSCheckZeit
+//const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
+//const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -365,8 +365,8 @@ class ElkHausnet extends utils.Adapter {
         
     this.connectController(this.config.ControllerIP,this.config.ControllerPort);
     this.log.debug("nach Verbindungsaufbau zum Controller.");
-    WD=setInterval(()=>{this.OnWatchdog();},WDTime);
-    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
+    WD=setInterval(()=>{this.OnWatchdog();},this.config.WDZeit);
+    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},this.config.DefaultsSetzenNach);
 }
 
 
@@ -555,7 +555,7 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingIntervall); // alle 5 s Ping senden
+    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },Controller.Ada.config.PingZeit); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
@@ -658,7 +658,7 @@ OnData(data)
                             if(obj.common.role=="switch")
                                 {
                                 this.log.debug("OnFSCheck planen");
-                                setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                                setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
                                 }
                             }
                         });
@@ -709,7 +709,7 @@ OnData(data)
                     this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
                     obj.native.AnzFehlerAktuell++;
                     this.setObject(id,obj);
-                    if(obj.native.AnzFehlerAktuell>MaxFSWdh)
+                    if(obj.native.AnzFehlerAktuell> this.config.FSVersuche)
                         { // zu viele Fehler
                         obj.native.AnzFehlerAktuell=0;
                         obj.native.AnzFehlerGesamt++;
@@ -726,7 +726,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
                         }
                     }); // getObject
                 }  // if(Connected)
