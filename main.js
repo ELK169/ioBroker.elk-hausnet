@@ -681,8 +681,8 @@ OnData(data)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                             if(obj.common.role=="switch")
                                 {
-                                this.log.debug("OnFSCheck planen: "+this.FSCheckzeit+" ms");
-                                setTimeout(()=>{this.OnFSCheck(id,state)},this.FSCheckzeit);
+                                this.log.debug("OnFSCheck planen: "+FSCheckzeit+" ms");
+                                setTimeout(()=>{this.OnFSCheck(id,state)},FSCheckzeit);
                                 }
                             }
                         });
@@ -750,7 +750,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},this.FSCheckzeit);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},FSCheckzeit);
                         }
                     }); // getObject
                 }  // if(Connected)
