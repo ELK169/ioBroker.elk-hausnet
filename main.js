@@ -45,15 +45,7 @@ class ElkHausnet extends utils.Adapter {
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
-        
-        this.PingZeit=this.config.PingZeit;
-        this.WDZeit=this.config.WDZeit;
-        this.FSTimeout=this.config.FSCheckZeit;
-        this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        this.FSVersuche=this.config.FSVersuche;
-
-
-        
+      
     }
 
     /**
@@ -66,11 +58,11 @@ class ElkHausnet extends utils.Adapter {
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
-        // this.PingZeit=this.config.PingZeit;
-        // this.WDZeit=this.config.WDZeit;
-        // this.FSTimeout=this.config.FSCheckZeit;
-        // this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        // this.FSVersuche=this.config.FSVersuche;
+        adapter.PingZeit=this.config.PingZeit;
+        adapter.WDZeit=this.config.WDZeit;
+        adapter.FSTimeout=this.config.FSCheckZeit;
+        adapter.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        adapter.FSVersuche=this.config.FSVersuche;
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
