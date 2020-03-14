@@ -15,11 +15,11 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit;
-var WDZeit;
+var PingZeit=10000;
+var WDZeit=30000;
 var FSTimeout=3000;
-var DefaultsSetzenNach;
-var FSVersuche;
+var DefaultsSetzenNach=10000;
+var FSVersuche=3;
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -46,12 +46,7 @@ class ElkHausnet extends utils.Adapter {
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
 
-
-        PingZeit=this.config.PingZeit;
-        WDZeit=this.config.WDZeit;
-        FSTimeout=this.config.FSCheckZeit;
-        DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        FSVersuche=this.config.FSVersuche;
+        
     }
 
     /**
@@ -64,11 +59,11 @@ class ElkHausnet extends utils.Adapter {
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
-        // PingZeit=this.config.PingZeit;
-        // WDZeit=this.config.WDZeit;
-        // FSTimeout=this.config.FSCheckZeit;
-        // DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        // FSVersuche=this.config.FSVersuche;
+        this.PingZeit=this.config.PingZeit;
+        this.WDZeit=this.config.WDZeit;
+        this.FSTimeout=this.config.FSCheckZeit;
+        this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        this.FSVersuche=this.config.FSVersuche;
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -77,7 +72,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
         this.log.info("PingZeit: " + PingZeit);
-//        this.log.info("FSCheckZeit: " + FSCheckZeit);
+//        this.log.info("FSTimeout: " + FSTimeout);
         this.log.info("FSVersuche: " + FSVersuche);
         this.log.info("WDZeit: " + WDZeit);
         this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
