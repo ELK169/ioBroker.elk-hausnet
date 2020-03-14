@@ -45,6 +45,13 @@ class ElkHausnet extends utils.Adapter {
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
+
+
+        PingZeit=this.config.PingZeit;
+        WDZeit=this.config.WDZeit;
+        FSTimeout=this.config.FSCheckZeit;
+        DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        FSVersuche=this.config.FSVersuche;
     }
 
     /**
@@ -57,11 +64,11 @@ class ElkHausnet extends utils.Adapter {
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
-        PingZeit=this.config.PingZeit;
-        WDZeit=this.config.WDZeit;
-        FSTimeout=this.config.FSCheckZeit;
-        DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        FSVersuche=this.config.FSVersuche;
+        // PingZeit=this.config.PingZeit;
+        // WDZeit=this.config.WDZeit;
+        // FSTimeout=this.config.FSCheckZeit;
+        // DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        // FSVersuche=this.config.FSVersuche;
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
