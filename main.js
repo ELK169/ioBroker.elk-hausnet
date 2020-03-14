@@ -58,11 +58,20 @@ class ElkHausnet extends utils.Adapter {
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
-        adapter.PingZeit=this.config.PingZeit;
-        adapter.WDZeit=this.config.WDZeit;
-        adapter.FSTimeout=this.config.FSCheckZeit;
-        adapter.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        adapter.FSVersuche=this.config.FSVersuche;
+
+        this.log.debug("1: FSTimeout: " + FSTimeout);
+        this.log.debug("2: FSTimeout: " + this.FSTimeout);
+        this.log.debug("3: FSTimeout: " + this.config.FSCheckZeit);
+
+        this.PingZeit=this.config.PingZeit;
+        this.WDZeit=this.config.WDZeit;
+        this.FSTimeout=this.config.FSCheckZeit;
+        this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        this.FSVersuche=this.config.FSVersuche;
+
+        this.log.debug("4: FSTimeout: " + FSTimeout);
+        this.log.debug("5: FSTimeout: " + this.FSTimeout);
+        this.log.debug("6: FSTimeout: " + this.config.FSCheckZeit);
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -683,6 +692,13 @@ OnData(data)
                             if(obj.common.role=="switch")
                                 {
                                 this.log.debug("OnFSCheck planen: "+FSTimeout+" ms");
+
+                                this.log.debug("7: FSTimeout: " + FSTimeout);
+                                this.log.debug("8: FSTimeout: " + this.FSTimeout);
+                                this.log.debug("9: FSTimeout: " + this.config.FSCheckZeit);
+                        
+
+
                                 setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
                                 }
                             }
