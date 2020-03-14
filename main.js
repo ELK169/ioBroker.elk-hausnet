@@ -15,11 +15,11 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit;
-var WDZeit;
-var FSCheckZeit;
-var DefaultsSetzenNach;
-var FSVersuche;
+let PingZeit;
+let WDZeit;
+let FSCheckZeit;
+let DefaultsSetzenNach;
+let FSVersuche;
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
