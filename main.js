@@ -607,7 +607,7 @@ OnData(data)
         Controller.Ada.setState(O,neuerWert,true);
         }
     else
-        Controller.Ada.log.warn("Wertänderung für unbekanntes Objekt erhalten","warn");
+        Controller.Ada.log.warn("Wertänderung für unbekanntes Objekt erhalten");
     return;
     }
   }       
@@ -682,7 +682,7 @@ OnData(data)
                             if(obj.common.role=="switch")
                                 {
                                 this.log.debug("OnFSCheck planen: "+FSTimeout+" ms");
-                                setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                                setTimeout(()=>{this.OnFSCheck(id,state)},1000);
                                 }
                             }
                         });
@@ -750,7 +750,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},FSTimeout);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},1200);
                         }
                     }); // getObject
                 }  // if(Connected)
