@@ -11,13 +11,13 @@ const fs = require("fs");
 const net = require("net");
 //const PingIntervall=10000;// neu: PingZeit
 //const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
-const FSTimeout=1000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat// neu: FSCheckZeit
+//const FSTimeout=1000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat// neu: FSCheckZeit
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
 var PingZeit;
 var WDZeit;
-//const FSTimeout=1500;
+var FSTimeout=1000;
 var DefaultsSetzenNach;
 var FSVersuche;
 
