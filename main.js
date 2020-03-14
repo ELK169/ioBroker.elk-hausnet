@@ -750,7 +750,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},Adapter.FSCheckzeit);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},this.FSCheckzeit);
                         }
                     }); // getObject
                 }  // if(Connected)
