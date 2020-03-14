@@ -15,6 +15,12 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
+var PingZeit=this.config.PingZeit;
+var WDZeit=this.config.WDZeit;
+var FSCheckZeit=this.config.FSCheckZeit;
+var DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+var FSVersuche=this.config.FSVersuche;
+
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
 var IntTmr=null;
@@ -56,11 +62,11 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
-        this.log.info("PingZeit: " + this.config.PingZeit);
-        this.log.info("FSCheckZeit: " + this.config.FSCheckZeit);
-        this.log.info("FSVersuche: " + this.config.FSVersuche);
-        this.log.info("WDZeit: " + this.config.WDZeit);
-        this.log.info("DefaultsSetzenNach: " + this.config.DefaultsSetzenNach);
+        this.log.info("PingZeit: " + PingZeit);
+        this.log.info("FSCheckZeit: " + FSCheckZeit);
+        this.log.info("FSVersuche: " + FSVersuche);
+        this.log.info("WDZeit: " + WDZeit);
+        this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
 
         //const PingIntervall=10000;// neu: PingZeit
 //const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
@@ -376,8 +382,8 @@ class ElkHausnet extends utils.Adapter {
         
     this.connectController(this.config.ControllerIP,this.config.ControllerPort);
     this.log.debug("nach Verbindungsaufbau zum Controller.");
-    WD=setInterval(()=>{this.OnWatchdog();},this.config.WDZeit);
-    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},this.config.DefaultsSetzenNach);
+    WD=setInterval(()=>{this.OnWatchdog();},WDZeit);
+    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
 }
 
 
@@ -566,7 +572,7 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },Controller.Ada.config.PingZeit); // alle 5 s Ping senden
+    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingZeit); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
@@ -668,8 +674,8 @@ OnData(data)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                             if(obj.common.role=="switch")
                                 {
-                                this.log.debug("OnFSCheck planen: "+this.config.FSCheckzeit+" ms");
-                                setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
+                                this.log.debug("OnFSCheck planen: "+FSCheckzeit+" ms");
+                                setTimeout(()=>{this.OnFSCheck(id,state)},FSCheckzeit);
                                 }
                             }
                         });
@@ -720,7 +726,7 @@ OnData(data)
                     this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
                     obj.native.AnzFehlerAktuell++;
                     this.setObject(id,obj);
-                    if(obj.native.AnzFehlerAktuell> this.config.FSVersuche)
+                    if(obj.native.AnzFehlerAktuell > FSVersuche)
                         { // zu viele Fehler
                         obj.native.AnzFehlerAktuell=0;
                         obj.native.AnzFehlerGesamt++;
@@ -737,7 +743,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},FSCheckzeit);
                         }
                     }); // getObject
                 }  // if(Connected)
