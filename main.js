@@ -15,7 +15,7 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit=10000;
+var PingZeit=this.config.PingZeit;
 var WDZeit=30000;
 // var FSTimeout=3000;
 var DefaultsSetzenNach=10000;
@@ -63,7 +63,7 @@ class ElkHausnet extends utils.Adapter {
         // this.log.debug("2: FSTimeout: " + this.FSTimeout);
         // this.log.debug("3: FSTimeout: " + this.config.FSCheckZeit);
 
-        this.PingZeit=this.config.PingZeit;
+        // this.PingZeit=this.config.PingZeit;
         this.WDZeit=this.config.WDZeit;
         // this.FSTimeout=this.config.FSCheckZeit;
         this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
