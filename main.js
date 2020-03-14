@@ -15,11 +15,11 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-let PingZeit;
-let WDZeit;
-let FSCheckZeit;
-let DefaultsSetzenNach;
-let FSVersuche;
+var PingZeit;
+var WDZeit;
+const FSCheckZeit=1500;
+var DefaultsSetzenNach;
+var FSVersuche;
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -681,8 +681,8 @@ OnData(data)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                             if(obj.common.role=="switch")
                                 {
-                                this.log.debug("OnFSCheck planen: "+FSCheckzeit+" ms");
-                                setTimeout(()=>{this.OnFSCheck(id,state)},FSCheckzeit);
+                                this.log.debug("OnFSCheck planen: "+this.FSCheckzeit+" ms");
+                                setTimeout(()=>{this.OnFSCheck(id,state)},this.FSCheckzeit);
                                 }
                             }
                         });
@@ -750,7 +750,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},FSCheckzeit);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},this.FSCheckzeit);
                         }
                     }); // getObject
                 }  // if(Connected)
