@@ -15,11 +15,11 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit=this.config.PingZeit;
-var WDZeit=this.config.WDZeit;
-var FSCheckZeit=this.config.FSCheckZeit;
-var DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-var FSVersuche=this.config.FSVersuche;
+var PingZeit;
+var WDZeit;
+var FSCheckZeit;
+var DefaultsSetzenNach;
+var FSVersuche;
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -56,6 +56,13 @@ class ElkHausnet extends utils.Adapter {
         var buf;
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
+
+        PingZeit=this.config.PingZeit;
+        WDZeit=this.config.WDZeit;
+        FSCheckZeit=this.config.FSCheckZeit;
+        DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        FSVersuche=this.config.FSVersuche;
+
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
