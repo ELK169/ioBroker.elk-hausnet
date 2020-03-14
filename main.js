@@ -17,7 +17,7 @@ const net = require("net");
 
 var PingZeit;
 var WDZeit;
-var FSTimeout=1000;
+var FSTimeout=3000;
 var DefaultsSetzenNach;
 var FSVersuche;
 
@@ -59,7 +59,7 @@ class ElkHausnet extends utils.Adapter {
 
         PingZeit=this.config.PingZeit;
         WDZeit=this.config.WDZeit;
-//        FSTimeout=this.config.FSCheckZeit;
+        FSTimeout=this.config.FSCheckZeit;
         DefaultsSetzenNach=this.config.DefaultsSetzenNach;
         FSVersuche=this.config.FSVersuche;
 
