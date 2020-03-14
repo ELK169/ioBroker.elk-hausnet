@@ -17,7 +17,7 @@ const net = require("net");
 
 var PingZeit=10000;
 var WDZeit=30000;
-var FSTimeout=3000;
+// var FSTimeout=3000;
 var DefaultsSetzenNach=10000;
 var FSVersuche=3;
 
@@ -59,19 +59,19 @@ class ElkHausnet extends utils.Adapter {
         this.setState("info.connection", false, true); // gelb
 
 
-        this.log.debug("1: FSTimeout: " + FSTimeout);
-        this.log.debug("2: FSTimeout: " + this.FSTimeout);
-        this.log.debug("3: FSTimeout: " + this.config.FSCheckZeit);
+        // this.log.debug("1: FSTimeout: " + FSTimeout);
+        // this.log.debug("2: FSTimeout: " + this.FSTimeout);
+        // this.log.debug("3: FSTimeout: " + this.config.FSCheckZeit);
 
         this.PingZeit=this.config.PingZeit;
         this.WDZeit=this.config.WDZeit;
-        this.FSTimeout=this.config.FSCheckZeit;
+        // this.FSTimeout=this.config.FSCheckZeit;
         this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
         this.FSVersuche=this.config.FSVersuche;
 
-        this.log.debug("4: FSTimeout: " + FSTimeout);
-        this.log.debug("5: FSTimeout: " + this.FSTimeout);
-        this.log.debug("6: FSTimeout: " + this.config.FSCheckZeit);
+        // this.log.debug("4: FSTimeout: " + FSTimeout);
+        // this.log.debug("5: FSTimeout: " + this.FSTimeout);
+        // this.log.debug("6: FSTimeout: " + this.config.FSCheckZeit);
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -80,7 +80,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
         this.log.info("PingZeit: " + PingZeit);
-        this.log.info("FSTimeout: " + FSTimeout);
+        // this.log.info("FSTimeout: " + FSTimeout);
         this.log.info("FSVersuche: " + FSVersuche);
         this.log.info("WDZeit: " + WDZeit);
         this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
@@ -693,9 +693,9 @@ OnData(data)
                                 {
                                 this.log.debug("OnFSCheck planen: "+this.config.FSCheckZeit+" ms");
 
-                                this.log.debug("7: FSTimeout: " + FSTimeout);
-                                this.log.debug("8: FSTimeout: " + this.FSTimeout);
-                                this.log.debug("9: FSTimeout: " + this.config.FSCheckZeit);
+                                // this.log.debug("7: FSTimeout: " + FSTimeout);
+                                // this.log.debug("8: FSTimeout: " + this.FSTimeout);
+                                // this.log.debug("9: FSTimeout: " + this.config.FSCheckZeit);
                         
 
 
