@@ -590,9 +590,9 @@ OnData(data)
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
 
-    this.log.debug("7: PingZeit: " + PingZeit);
-    this.log.debug("8: PingZeit: " + this.PingZeit);
-    this.log.debug("9: PingZeit: " + this.config.PingZeit);
+    Controller.Ada.log.debug("7: PingZeit: " + PingZeit);
+    Controller.Ada.log.debug("8: PingZeit: " + Controller.Ada.PingZeit);
+    Controller.Ada.log.debug("9: PingZeit: " + Controller.Ada.config.PingZeit);
 
 
     IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingZeit); // alle 5 s Ping senden
