@@ -15,7 +15,7 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit=this.config.PingZeit;
+var PingZeit=10000;
 var WDZeit=30000;
 // var FSTimeout=3000;
 var DefaultsSetzenNach=10000;
@@ -59,19 +59,19 @@ class ElkHausnet extends utils.Adapter {
         this.setState("info.connection", false, true); // gelb
 
 
-        // this.log.debug("1: FSTimeout: " + FSTimeout);
-        // this.log.debug("2: FSTimeout: " + this.FSTimeout);
-        // this.log.debug("3: FSTimeout: " + this.config.FSCheckZeit);
+        this.log.debug("1: PingZeit: " + PingZeit);
+        this.log.debug("2: PingZeit: " + this.PingZeit);
+        this.log.debug("3: PingZeit: " + this.config.PingZeit);
 
-        // this.PingZeit=this.config.PingZeit;
+        this.PingZeit=this.config.PingZeit;
         this.WDZeit=this.config.WDZeit;
         // this.FSTimeout=this.config.FSCheckZeit;
         this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
         this.FSVersuche=this.config.FSVersuche;
 
-        // this.log.debug("4: FSTimeout: " + FSTimeout);
-        // this.log.debug("5: FSTimeout: " + this.FSTimeout);
-        // this.log.debug("6: FSTimeout: " + this.config.FSCheckZeit);
+        this.log.debug("4: PingZeit: " + PingZeit);
+        this.log.debug("5: PingZeit: " + this.PingZeit);
+        this.log.debug("6: PingZeit: " + this.config.PingZeit);
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -79,7 +79,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
-        this.log.info("PingZeit: " + PingZeit);
+        // this.log.info("PingZeit: " + PingZeit);
         // this.log.info("FSTimeout: " + FSTimeout);
         this.log.info("FSVersuche: " + FSVersuche);
         this.log.info("WDZeit: " + WDZeit);
@@ -589,6 +589,12 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
+
+    this.log.debug("7: PingZeit: " + PingZeit);
+    this.log.debug("8: PingZeit: " + this.PingZeit);
+    this.log.debug("9: PingZeit: " + this.config.PingZeit);
+
+
     IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingZeit); // alle 5 s Ping senden
     return;
     }
