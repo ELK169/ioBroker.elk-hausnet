@@ -657,7 +657,7 @@ OnData(data)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                             if(obj.common.role=="switch")
                                 {
-                                this.log.debug("OnFSCheck planen");
+                                this.log.debug("OnFSCheck planen "+this.config.FSCheckzeit);
                                 setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
                                 }
                             }
