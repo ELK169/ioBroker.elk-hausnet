@@ -45,6 +45,13 @@ class ElkHausnet extends utils.Adapter {
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
+        
+        this.PingZeit=this.config.PingZeit;
+        this.WDZeit=this.config.WDZeit;
+        this.FSTimeout=this.config.FSCheckZeit;
+        this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        this.FSVersuche=this.config.FSVersuche;
+
 
         
     }
@@ -59,11 +66,11 @@ class ElkHausnet extends utils.Adapter {
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
-        this.PingZeit=this.config.PingZeit;
-        this.WDZeit=this.config.WDZeit;
-        this.FSTimeout=this.config.FSCheckZeit;
-        this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        this.FSVersuche=this.config.FSVersuche;
+        // this.PingZeit=this.config.PingZeit;
+        // this.WDZeit=this.config.WDZeit;
+        // this.FSTimeout=this.config.FSCheckZeit;
+        // this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        // this.FSVersuche=this.config.FSVersuche;
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -72,7 +79,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
         this.log.info("PingZeit: " + PingZeit);
-//        this.log.info("FSTimeout: " + FSTimeout);
+        this.log.info("FSTimeout: " + FSTimeout);
         this.log.info("FSVersuche: " + FSVersuche);
         this.log.info("WDZeit: " + WDZeit);
         this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
