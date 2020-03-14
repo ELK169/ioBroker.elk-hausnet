@@ -70,7 +70,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
         this.log.info("PingZeit: " + PingZeit);
-        this.log.info("FSCheckZeit: " + FSCheckZeit);
+//        this.log.info("FSCheckZeit: " + FSCheckZeit);
         this.log.info("FSVersuche: " + FSVersuche);
         this.log.info("WDZeit: " + WDZeit);
         this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
