@@ -56,6 +56,17 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
+        this.log.info("PingZeit: " + this.config.PingZeit);
+        this.log.info("FSCheckZeit: " + this.config.FSCheckZeit);
+        this.log.info("FSVersuche: " + this.config.FSVersuche);
+        this.log.info("WDZeit: " + this.config.WDZeit);
+        this.log.info("DefaultsSetzenNach: " + this.config.DefaultsSetzenNach);
+
+        //const PingIntervall=10000;// neu: PingZeit
+//const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
+//const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat// neu: FSCheckZeit
+//const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
+//const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
         // Konfigurationsdateien laden
         // this.log.info("Räume laden...");
@@ -657,8 +668,8 @@ OnData(data)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StNeu+"\0");
                             if(obj.common.role=="switch")
                                 {
-                                this.log.debug("OnFSCheck planen "+this.config.FSCheckzeit);
-                                setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
+                                this.log.debug("OnFSCheck planen: "+adapter.config.FSCheckzeit+" ms");
+                                setTimeout(()=>{this.OnFSCheck(id,state)},adapter.config.FSCheckzeit);
                                 }
                             }
                         });
@@ -726,7 +737,7 @@ OnData(data)
                         if(Connected)
                             Controller.write("Obj"+obj.native.Nr.toString()+"="+StN+"\0");
                         this.log.debug("OnFSCheck planen");
-                        setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckzeit);
+                        setTimeout(()=>{this.OnFSCheck(id,state)},adapter.config.FSCheckzeit);
                         }
                     }); // getObject
                 }  // if(Connected)
