@@ -15,7 +15,7 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit=10000;
+// var PingZeit=10000;
 var WDZeit=30000;
 // var FSTimeout=3000;
 var DefaultsSetzenNach=10000;
@@ -63,7 +63,7 @@ class ElkHausnet extends utils.Adapter {
         // this.log.debug("2: FSTimeout: " + this.FSTimeout);
         // this.log.debug("3: FSTimeout: " + this.config.FSCheckZeit);
 
-        this.PingZeit=this.config.PingZeit;
+        // this.PingZeit=this.config.PingZeit;
         this.WDZeit=this.config.WDZeit;
         // this.FSTimeout=this.config.FSCheckZeit;
         this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
@@ -79,7 +79,7 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
-        this.log.info("PingZeit: " + PingZeit);
+        // this.log.info("PingZeit: " + PingZeit);
         // this.log.info("FSTimeout: " + FSTimeout);
         this.log.info("FSVersuche: " + FSVersuche);
         this.log.info("WDZeit: " + WDZeit);
@@ -589,7 +589,7 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingZeit); // alle 5 s Ping senden
+    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },this.config.PingZeit); // alle 5 s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
