@@ -675,7 +675,7 @@ OnData(data)
                         this.setObject(id,obj);
                         // jetzt nochmal den aktuellen Status abfragen, dann ist wieder alles synchron...
                         Controller.write("?Obj"+obj.native.Nr.toString()+"\0");
-                        this.OnPermanentFehler(id,this);
+                        this.OnPermanentFehler(obj);
                         }
                     else
                         {   // nochmal versuchen
@@ -696,16 +696,13 @@ OnData(data)
 
 
 
-    OnPermanentFehler(id,TH)
+    OnPermanentFehler(OBJ)
         {
-        this.log.error("nicht behebbarer Fehler bei "+id);
-        // ggf. weitere Benachrichtigungen...
+        this.log.error("nicht behebbarer Fehler bei "+OBJ);
         // kann sich hier nur um einen Fernschalter handeln
-        this.getObject("system."+id,(obj)=>
-            {
-            this.log.debug("getObject gibt zurück: "+obj);
-            this.setState("Info.letzterFehler","Der Fernschalter "+obj.native.ObjID+" (#"+obj.native.Nr+") konnte nicht geschaltet werden. Gesamtfehler: "+obj.native.AnzFehlerGesamt);
-            });
+        this.setState("Info.letzterFehler","Der Fernschalter "+OBJ.native.ObjID+" (#"+OBJ.native.Nr+") konnte nicht geschaltet werden. Gesamtfehler: "+OBJ.native.AnzFehlerGesamt);
+        // ggf. weitere Benachrichtigungen und Aktionen...
+
         }   
 
 
