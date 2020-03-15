@@ -9,17 +9,6 @@
 const utils = require("@iobroker/adapter-core");
 const fs = require("fs");
 const net = require("net");
-//const PingIntervall=10000;// neu: PingZeit
-//const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
-//const FSTimeout=1000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat// neu: FSCheckZeit
-//const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
-//const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
-
-//var PingZeit=10000;
-//var WDZeit=30000;
-// var FSTimeout=3000;
-//var DefaultsSetzenNach=10000;
-// var FSVersuche=3;
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -58,38 +47,11 @@ class ElkHausnet extends utils.Adapter {
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true); // gelb
 
-
-        // this.log.debug("1: PingZeit: " + PingZeit);
-        // this.log.debug("2: PingZeit: " + this.PingZeit);
-        // this.log.debug("3: PingZeit: " + this.config.PingZeit);
-
-        // this.PingZeit=this.config.PingZeit;
-        //this.WDZeit=this.config.WDZeit;
-        // this.FSTimeout=this.config.FSCheckZeit;
-        // this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        // this.FSVersuche=this.config.FSVersuche;
-
-        // this.log.debug("4: PingZeit: " + PingZeit);
-        // this.log.debug("5: PingZeit: " + this.PingZeit);
-        // this.log.debug("6: PingZeit: " + this.config.PingZeit);
-
-
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
         this.log.info("Config-Dateipfad: " + this.config.Config);
         this.log.info("Controller-IP: " + this.config.ControllerIP);
         this.log.info("Controller-Port: " + this.config.ControllerPort);
-        // this.log.info("PingZeit: " + PingZeit);
-        // this.log.info("FSTimeout: " + FSTimeout);
-        // this.log.info("FSVersuche: " + FSVersuche);
-//        this.log.info("WDZeit: " + WDZeit);
-        // this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
-
-        //const PingIntervall=10000;// neu: PingZeit
-//const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
-//const FSTimeout=2000;  // Zeit in ms, nach der geprüft wird, ob ein FS geschaltet hat// neu: FSCheckZeit
-//const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
-//const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
         // Konfigurationsdateien laden
         // this.log.info("Räume laden...");
@@ -136,7 +98,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: true,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "IMP":
@@ -151,7 +113,7 @@ class ElkHausnet extends utils.Adapter {
                         read: false,
                         write: true,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "DIMMER":
@@ -166,7 +128,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: true,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                 break;
                case "FENSTER":
@@ -181,7 +143,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
               case "TUER":
@@ -196,7 +158,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "RIEGEL":
@@ -211,7 +173,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "TASTER":
@@ -226,7 +188,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "BM":
@@ -241,7 +203,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "LS":
@@ -256,7 +218,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "KONTAKT":
@@ -271,7 +233,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
              case "STROM":
@@ -286,7 +248,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                case "TEMP":
@@ -301,7 +263,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                 case "HELL":
@@ -316,7 +278,7 @@ class ElkHausnet extends utils.Adapter {
                         read: true,
                         write: false,
                         },
-                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true}
+                    native:{"Nr": element.objnr, "AnzFehlerAktuell":0 , "AnzFehlerGesamt":0, "Aktiv":true, "ObjID":element.objID}
                     });
                     break;
                 } // switch
@@ -406,55 +368,17 @@ class ElkHausnet extends utils.Adapter {
 
 
 
-// nach kurzer Zeit Defaultwerte setzen und Fehlerzähler zurücksetzen
-//if(element.defaultwert!=null)
-//{
-///this.setStateAsync("Obj."+element.typ+"."+element.objname,element.defaultwert,false);
-//}
-
-
+// nach dem Start Defaultwerte setzen und Fehlerzähler zurücksetzen
 OnDefaultwerteSetzen(Objekte,A)
  {
-
-
-// test!!
-/*
-this.log.info("vor getObjectList...");
-
-adapter.objects.getObjectList({
-        startkey: adapter.namespace + '.Obj.',
-        endkey:   adapter.namespace + '.Obj.\u9999'},liste=>{this.log.info(liste.stringify())});
-
-        this.log.info("nach getObjectList.");
-
-//this.getState("Obj.FS.FS001",element => {this.log.info(element.id);});
-
-/*
-//var HNObjekte; elk-hausnet.0.Obj.
-adapter.getStates('*', (err, states) => 
-    {
-    this.log.info("in getStates...");
-  //  HNObjekte=states;
-    for(var id in states)
-        {
-        this.log.info(id.toString() + JSON.stringify(id));
-        }
-
-    }); 
-
-*/
-
-
-
-     // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
-     // Fehlerzähler zurücksetzen
+ // alle Objekte aus der Datei durchgehen und ggf. den Defaultwert setzen (FS aus z.B.)
+ // Fehlerzähler zurücksetzen
  A.log.info("Defaultwerte setzen...");
  Objekte.forEach( (element) =>
     {
         var OName=A.namespace+".Obj."+element.typ+"."+element.objname;
 
         A.log.debug("Objekt holen: "+ OName);
-
         A.getObject(OName, (err,obj) =>
         {   
             if(obj==null || obj==undefined) 
@@ -468,32 +392,30 @@ adapter.getStates('*', (err, states) =>
             A.log.debug(obj.common.name.toString());
             A.log.debug(obj.native.Nr);
             A.log.debug(obj.common.role);
-            
-           
-
             obj.native.AnzFehlerAktuell=0;
         if(obj.common.role=="switch" && element.defaultwert!=null)    
             {
-//                A.getState(obj.common.name, (err,state)=>{A.log.debug("jetziger Objektwert ist "+state.val.toString());})   ;
-                A.getState(obj, (err,state)=>{A.log.debug("Objektwert vorher ist "+state.val.toString());})   ;
-           
+            A.getState(obj, (err,state)=>{A.log.debug("Objektwert vorher ist "+state.val.toString());})   ;
             A.log.debug("Objekt auf "+element.defaultwert.toString()+" setzen.");
             A.setState(obj._id,element.defaultwert,false);  // FS schalten, wenn erforderlich
-
-           // A.getState(obj, (err,state)=>{A.log.debug("Objektwert hinterher ist "+state.val.toString());})   ;
-
-//            A.log.debug("Objektwert hinterher ist "+obj.val.toString());
+            // A.getState(obj, (err,state)=>{A.log.debug("Objektwert hinterher ist "+state.val.toString());})   ;
+            // A.log.debug("Objektwert hinterher ist "+obj.val.toString());
             }
         }
         });
     })
 }
 
-    //////////////////////////////////////////////////////////////////
-    // Es folgen Funktionen zum Zugriff auf die Controllerhardware
-    //////////////////////////////////////////////////////////////////
 
 
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+// Es folgen Funktionen zum Zugriff auf die Controllerhardware
+//////////////////////////////////////////////////////////////////
 
   connectController(host,port)
     {
@@ -519,6 +441,7 @@ adapter.getStates('*', (err, states) =>
     Controller.connect({host: host, port: port},this.OnConnect);
     this.log.debug('nach Verbindungsversuch..');
     }
+
 
 
 OnEnd()
@@ -564,6 +487,7 @@ OnConnect()
    Controller.write("?Info\0"); // Controller abfragen
    // Rest ergibt sich, wenn eine Antwort kommt
 }
+
 
 OnWatchdog()
 { // wird regelmäßig aufgerufen und schaut, wann der letzte Kontakt war
@@ -693,13 +617,6 @@ OnData(data)
                             if(obj.common.role=="switch")
                                 {
                                 this.log.debug("OnFSCheck planen: "+this.config.FSCheckZeit+" ms");
-
-                                // this.log.debug("7: FSTimeout: " + FSTimeout);
-                                // this.log.debug("8: FSTimeout: " + this.FSTimeout);
-                                // this.log.debug("9: FSTimeout: " + this.config.FSCheckZeit);
-                        
-
-
                                 setTimeout(()=>{this.OnFSCheck(id,state)},this.config.FSCheckZeit);
                                 }
                             }
@@ -783,9 +700,9 @@ OnData(data)
         {
         this.log.error("nicht behebbarer Fehler bei "+id);
         // ggf. weitere Benachrichtigungen...
-
+        // kann sich hier nur um einen Fernschalter handeln
+        this.setState("Info.letzterFehler","Der Fernschalter "+id.element.obiID+" konnte nicht geschaltet werden. Gesamtfehler: "+id.element.AnzFehlerGesamt);
         }   
-
 
 
     // /**
