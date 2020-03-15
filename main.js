@@ -698,9 +698,9 @@ OnData(data)
 
     OnPermanentFehler(OBJ)
         {
-        this.log.error("nicht behebbarer Fehler bei "+OBJ);
         // kann sich hier nur um einen Fernschalter handeln
-        this.setState("Info.letzterFehler","Der Fernschalter "+OBJ.native.ObjID+" (#"+OBJ.native.Nr+") konnte nicht geschaltet werden. Gesamtfehler: "+OBJ.native.AnzFehlerGesamt,true);
+        this.log.error("nicht behebbarer Fehler beim Schalten von FS "+OBJ.native.ObjID);
+        this.setState("info.letzterFehler","Der Fernschalter "+OBJ.native.ObjID+" (#"+OBJ.native.Nr+") konnte nicht geschaltet werden. Gesamtfehler: "+OBJ.native.AnzFehlerGesamt,true);
         // ggf. weitere Benachrichtigungen und Aktionen...
 
         }   
