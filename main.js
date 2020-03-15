@@ -15,7 +15,7 @@ const net = require("net");
 //const DefaultsSetzenNach=5000; // Zeit in ms, nach der nach dem Start die Defaulwerte für FS gesetzt werden// neu: DefaultsSetzenNach
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
-var PingZeit=10000;
+//var PingZeit=10000;
 var WDZeit=30000;
 // var FSTimeout=3000;
 var DefaultsSetzenNach=10000;
@@ -59,19 +59,19 @@ class ElkHausnet extends utils.Adapter {
         this.setState("info.connection", false, true); // gelb
 
 
-        this.log.debug("1: PingZeit: " + PingZeit);
-        this.log.debug("2: PingZeit: " + this.PingZeit);
-        this.log.debug("3: PingZeit: " + this.config.PingZeit);
+        // this.log.debug("1: PingZeit: " + PingZeit);
+        // this.log.debug("2: PingZeit: " + this.PingZeit);
+        // this.log.debug("3: PingZeit: " + this.config.PingZeit);
 
-        this.PingZeit=this.config.PingZeit;
+        // this.PingZeit=this.config.PingZeit;
         this.WDZeit=this.config.WDZeit;
         // this.FSTimeout=this.config.FSCheckZeit;
         this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
         this.FSVersuche=this.config.FSVersuche;
 
-        this.log.debug("4: PingZeit: " + PingZeit);
-        this.log.debug("5: PingZeit: " + this.PingZeit);
-        this.log.debug("6: PingZeit: " + this.config.PingZeit);
+        // this.log.debug("4: PingZeit: " + PingZeit);
+        // this.log.debug("5: PingZeit: " + this.PingZeit);
+        // this.log.debug("6: PingZeit: " + this.config.PingZeit);
 
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -399,7 +399,8 @@ class ElkHausnet extends utils.Adapter {
         
     this.connectController(this.config.ControllerIP,this.config.ControllerPort);
     this.log.debug("nach Verbindungsaufbau zum Controller.");
-    WD=setInterval(()=>{this.OnWatchdog();},WDZeit);
+
+    WD=setInterval(()=>{this.OnWatchdog();},this.config.WDZeit);
     setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
 }
 
@@ -589,13 +590,7 @@ OnData(data)
     Connected=true;
     Controller.Ada.log.info("Verbindung bestätigt.")
     Controller.write("Start\0"); // Statusüberwachung starten
-
-    Controller.Ada.log.debug("7: PingZeit: " + PingZeit);
-    Controller.Ada.log.debug("8: PingZeit: " + Controller.Ada.PingZeit);
-    Controller.Ada.log.debug("9: PingZeit: " + Controller.Ada.config.PingZeit);
-
-
-    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },PingZeit); // alle 5 s Ping senden
+    IntTmr=setInterval(()=>{ if(Connected) {Controller.write("Ping\0"); Controller.Ada.log.debug("Ping");} },Controller.Ada.config.PingZeit); // alle x s Ping senden
     return;
     }
   if(data.toString().startsWith("gestartet"))
@@ -607,9 +602,6 @@ OnData(data)
 
   if(data.toString().startsWith("Obj"))
     { // Zustandsmeldung
-
-return;
-
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
     Controller.Ada.log.debug("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
