@@ -16,10 +16,10 @@ const net = require("net");
 //const MaxFSWdh=3; // maximale Anzahl von Wiederholungen, wenn ein FS nicht schaltet// neu: FSVersuche
 
 //var PingZeit=10000;
-var WDZeit=30000;
+//var WDZeit=30000;
 // var FSTimeout=3000;
-var DefaultsSetzenNach=10000;
-var FSVersuche=3;
+//var DefaultsSetzenNach=10000;
+// var FSVersuche=3;
 
 var WD; // Watchdog
 var LetzterKontakt=Date.now();
@@ -64,10 +64,10 @@ class ElkHausnet extends utils.Adapter {
         // this.log.debug("3: PingZeit: " + this.config.PingZeit);
 
         // this.PingZeit=this.config.PingZeit;
-        this.WDZeit=this.config.WDZeit;
+        //this.WDZeit=this.config.WDZeit;
         // this.FSTimeout=this.config.FSCheckZeit;
-        this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
-        this.FSVersuche=this.config.FSVersuche;
+        // this.DefaultsSetzenNach=this.config.DefaultsSetzenNach;
+        // this.FSVersuche=this.config.FSVersuche;
 
         // this.log.debug("4: PingZeit: " + PingZeit);
         // this.log.debug("5: PingZeit: " + this.PingZeit);
@@ -81,9 +81,9 @@ class ElkHausnet extends utils.Adapter {
         this.log.info("Controller-Port: " + this.config.ControllerPort);
         // this.log.info("PingZeit: " + PingZeit);
         // this.log.info("FSTimeout: " + FSTimeout);
-        this.log.info("FSVersuche: " + FSVersuche);
-        this.log.info("WDZeit: " + WDZeit);
-        this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
+        // this.log.info("FSVersuche: " + FSVersuche);
+//        this.log.info("WDZeit: " + WDZeit);
+        // this.log.info("DefaultsSetzenNach: " + DefaultsSetzenNach);
 
         //const PingIntervall=10000;// neu: PingZeit
 //const WDTime=30000; // Intervall des Watchdogs// neu: WDZeit
@@ -401,7 +401,7 @@ class ElkHausnet extends utils.Adapter {
     this.log.debug("nach Verbindungsaufbau zum Controller.");
 
     WD=setInterval(()=>{this.OnWatchdog();},this.config.WDZeit);
-    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},DefaultsSetzenNach);
+    setTimeout(()=>{this.OnDefaultwerteSetzen(HN.Objekte,this);},this.config.DefaultsSetzenNach);
 }
 
 
@@ -751,7 +751,7 @@ OnData(data)
                     this.log.debug("Fehlerzähler von "+obj.native.AnzFehlerAktuell+" um 1 erhöhen");
                     obj.native.AnzFehlerAktuell++;
                     this.setObject(id,obj);
-                    if(obj.native.AnzFehlerAktuell > FSVersuche)
+                    if(obj.native.AnzFehlerAktuell > this.config.FSVersuche)
                         { // zu viele Fehler
                         obj.native.AnzFehlerAktuell=0;
                         obj.native.AnzFehlerGesamt++;
