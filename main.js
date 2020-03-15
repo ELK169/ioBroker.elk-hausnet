@@ -607,6 +607,9 @@ OnData(data)
 
   if(data.toString().startsWith("Obj"))
     { // Zustandsmeldung
+
+return;
+
     var o=data.toString().slice(3,data.toString().indexOf("$"));
     var w=data.toString().slice(data.toString().indexOf("=")+1);
     Controller.Ada.log.debug("neue Zustandsmeldung empfangen: ["+o+"] - ["+w+"]");
