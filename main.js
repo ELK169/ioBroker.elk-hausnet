@@ -701,7 +701,7 @@ OnData(data)
         this.log.error("nicht behebbarer Fehler bei "+id);
         // ggf. weitere Benachrichtigungen...
         // kann sich hier nur um einen Fernschalter handeln
-        this.setState("Info.letzterFehler","Der Fernschalter "+id.element.obiID+" konnte nicht geschaltet werden. Gesamtfehler: "+id.element.AnzFehlerGesamt);
+        this.setState("Info.letzterFehler","Der Fernschalter "+id.element.objID+" konnte nicht geschaltet werden. Gesamtfehler: "+id.element.AnzFehlerGesamt);
         }   
 
 
