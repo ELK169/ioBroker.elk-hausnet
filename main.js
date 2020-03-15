@@ -701,10 +701,10 @@ OnData(data)
         this.log.error("nicht behebbarer Fehler bei "+id);
         // ggf. weitere Benachrichtigungen...
         // kann sich hier nur um einen Fernschalter handeln
-        TH.getObject("System."+id,(obj)=>
+        this.getObject("System."+id,(obj)=>
             {
-                this.log.debug("getObject gibt zurück: "+obj);
-            TH.setState("Info.letzterFehler","Der Fernschalter "+obj.native.ObjID+" (#"+obj.native.Nr+") konnte nicht geschaltet werden. Gesamtfehler: "+obj.native.AnzFehlerGesamt);
+            this.log.debug("getObject gibt zurück: "+obj);
+            this.setState("Info.letzterFehler","Der Fernschalter "+obj.native.ObjID+" (#"+obj.native.Nr+") konnte nicht geschaltet werden. Gesamtfehler: "+obj.native.AnzFehlerGesamt);
             });
         }   
 
